@@ -2,12 +2,9 @@ package com.example.springkotlin.controllers
 
 import com.example.springkotlin.Course
 import com.example.springkotlin.CourseService
-import org.slf4j.Logger
+import com.example.springkotlin.Student
 import org.slf4j.LoggerFactory
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.kotlin.core.publisher.toMono
@@ -30,5 +27,11 @@ class CourseController(val courseService: CourseService){
         LOGGER.debug("course $course is retrieved")
         return course?.let { it.toMono() }
     }
+
+    @DeleteMapping("/{courseId}")
+    fun deleteCourse(@PathVariable courseId: Int) = courseService.delete(courseId)
+
+    @PutMapping("/{courseId}")
+    fun updateCourse(@PathVariable courseId: Int, @RequestBody course: Course) = courseService.update(courseId, course)
 
 }

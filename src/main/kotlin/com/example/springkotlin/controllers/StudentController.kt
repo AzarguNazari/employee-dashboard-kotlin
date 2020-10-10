@@ -2,6 +2,7 @@ package com.example.springkotlin.controllers
 
 import com.example.springkotlin.Student
 import com.example.springkotlin.StudentService
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -9,6 +10,8 @@ import reactor.core.publisher.Mono
 @RestController
 @RequestMapping("/api/students")
 class StudentController(var studentService: StudentService){
+
+    var LOGGER = LoggerFactory.getLogger(StudentController::class.java)
 
     @GetMapping
     fun getAllStudents(): Flux<Student> = studentService.getAllPersons()
@@ -18,4 +21,11 @@ class StudentController(var studentService: StudentService){
 
     @PostMapping
     fun saveStudent(student: Student) = studentService.save(student)
+
+    @DeleteMapping("/{studentId}")
+    fun deleteStudent(@PathVariable studentId: Int) = studentService.delete(studentId)
+
+    @PutMapping("/{studentId}")
+    fun updateStudent(@PathVariable studentId: Int, @RequestBody student: Student) = studentService.update(studentId, student)
+
 }
