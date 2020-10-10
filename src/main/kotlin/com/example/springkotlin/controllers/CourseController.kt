@@ -25,7 +25,7 @@ class CourseController(val courseService: CourseService){
     }
 
     @GetMapping("/{courseId}")
-    fun getCourseById(@PathVariable courseId: String): Mono<Course>? {
+    fun getCourseById(@PathVariable courseId: Int): Mono<Course>? {
         val course : Course? = courseService.getCourseById(courseId)
         LOGGER.debug("course $course is retrieved")
         return course?.let { it.toMono() }

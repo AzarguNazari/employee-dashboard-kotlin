@@ -14,7 +14,7 @@ class StudentController(var studentService: StudentService){
     fun getAllStudents(): Flux<Student> = studentService.getAllPersons()
 
     @GetMapping("/{studentId}")
-    fun getStudentById(@PathVariable studentId: String): Mono<Student>? = studentService.getPersonById(studentId)?.let { Mono.just(it) }
+    fun getStudentById(@PathVariable studentId: Int): Mono<Student>? = studentService.getPersonById(studentId)?.let { Mono.just(it) }
 
     @PostMapping
     fun saveStudent(student: Student) = studentService.save(student)

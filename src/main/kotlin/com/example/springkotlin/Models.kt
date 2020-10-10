@@ -1,19 +1,23 @@
 package com.example.springkotlin
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.DBRef
-import org.springframework.data.mongodb.core.mapping.Document
+import javax.persistence.*
 
-@Document(collection = "students")
+@Entity
 data class Student(var firstName: String,
                    var lastName: String,
-                   @Id var id: String,
-                   @DBRef(lazy = true) var courses_ids: List<Course> = mutableListOf<Course>())
+                   @Id @GeneratedValue(strategy = GenerationType.AUTO) var id: Int = 0,
+                   @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+                   @JoinTable(name = "student_course",
+                              joinColumns = [JoinColumn(name = "course_id", referencedColumnName = "id")],
+                              inverseJoinColumns = [JoinColumn(name = "student_id", referencedColumnName = "id")])
+                    var courses : List<Course> = mutableListOf<Course>()
+                   )
 
-@Document(collection = "courses")
+@Entity
 data class Course(val courseName: String,
                   val ectc: Int,
-                  @Id var id: String,
-                  @DBRef(lazy = true) var students_ids: List<Student> = mutableListOf<Student>()
-)
+                  @Id @GeneratedValue(strategy = GenerationType.AUTO) var id: Int = 0,
+                  @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER)
+                  var students : List<Student> = mutableListOf<Student>()
+                  )
 

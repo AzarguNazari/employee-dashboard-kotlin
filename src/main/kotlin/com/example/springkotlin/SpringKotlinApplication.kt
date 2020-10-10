@@ -12,11 +12,11 @@ class SpringKotlinApplication(val courseRepository: CourseRepository,
 
     override fun run(vararg args: String?) {
 
-        val courses = listOf(Course("Mathmatics", 6, "1"),
-                             Course("Biology", 6, "2"))
+        val courses = listOf(Course("Mathmatics", 6),
+                             Course("Biology", 6))
 
-        val students = listOf(Student("Ahmad", "Nazari", "1"),
-                              Student("Kamal", "Nazari", "2"))
+        val students = listOf(Student("Ahmad", "Nazari"),
+                              Student("Kamal", "Nazari"))
 
         studentRepository.saveAll(students)
         courseRepository.saveAll(courses)
