@@ -1,5 +1,7 @@
 package com.example.springkotlin.controllers
 
+import com.example.springkotlin.Course
+import com.example.springkotlin.CourseService
 import com.example.springkotlin.Student
 import com.example.springkotlin.StudentService
 import org.slf4j.LoggerFactory
@@ -9,7 +11,7 @@ import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/api/students")
-class StudentController(var studentService: StudentService){
+class StudentController(val studentService: StudentService){
 
     var LOGGER = LoggerFactory.getLogger(StudentController::class.java)
 
@@ -27,5 +29,12 @@ class StudentController(var studentService: StudentService){
 
     @PutMapping("/{studentId}")
     fun updateStudent(@PathVariable studentId: Int, @RequestBody student: Student) = studentService.update(studentId, student)
+
+    @PostMapping("/{studentId}/register")
+    fun registerCourse(@PathVariable studentId: Int, @RequestBody course: Course) = studentService.registerCourse(studentId, course)
+
+
+    @PostMapping("/{studentId}/deregister")
+    fun deregisterCourse(@PathVariable studentId: Int, @RequestBody course: Course) = studentService.deregisterCourse(studentId, course)
 
 }

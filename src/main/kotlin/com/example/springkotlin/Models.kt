@@ -10,7 +10,7 @@ data class Student(var firstName: String,
                    @JoinTable(name = "student_course",
                               joinColumns = [JoinColumn(name = "course_id", referencedColumnName = "id")],
                               inverseJoinColumns = [JoinColumn(name = "student_id", referencedColumnName = "id")])
-                    var courses : List<Course> = mutableListOf<Course>()
+                    var courses : MutableList<Course> = mutableListOf<Course>()
                    )
 
 @Entity
@@ -18,6 +18,6 @@ data class Course(val courseName: String,
                   val ectc: Int,
                   @Id @GeneratedValue(strategy = GenerationType.AUTO) var id: Int = 0,
                   @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER)
-                  var students : List<Student> = mutableListOf<Student>()
+                  var students : MutableList<Student> = mutableListOf<Student>()
                   )
 

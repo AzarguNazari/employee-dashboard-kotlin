@@ -34,4 +34,10 @@ class CourseController(val courseService: CourseService){
     @PutMapping("/{courseId}")
     fun updateCourse(@PathVariable courseId: Int, @RequestBody course: Course) = courseService.update(courseId, course)
 
+    @PostMapping("/{courseId}/register")
+    fun registerCourse(@PathVariable courseId: Int, @RequestBody student: Student) = courseService.registerStudent(courseId, student)
+
+    @PostMapping("/{courseId}/deregister")
+    fun deregisterCourse(@PathVariable courseId: Int, @RequestBody student: Student) = courseService.deregisterStudent(courseId, student)
+
 }

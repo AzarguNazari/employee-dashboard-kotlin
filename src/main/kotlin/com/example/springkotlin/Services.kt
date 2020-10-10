@@ -11,12 +11,26 @@ class StudentService(val studentRepository: StudentRepository){
     fun save(student: Student) = studentRepository.save(student)
     fun delete(studentId: Int) = studentRepository.deleteById(studentId)
     fun update(studentId: Int, student: Student) = studentRepository.findById(studentId).let{
-            if (it.isEmpty) {
+            if (it.isPresent) {
                 student.id = studentId
                 studentRepository.deleteById(studentId)
                 studentRepository.save(student)
             }
         }
+
+    fun registerCourse(studentId: Int, course: Course) {
+        studentRepository.findById(studentId)?.let{
+            it.get().courses.add(course)
+            studentRepository.save(it.get())
+        }
+    }
+
+    fun deregisterCourse(studentId: Int, course: Course) {
+        studentRepository.findById(studentId)?.let{
+            it.get().courses.remove(course)
+            studentRepository.save(it.get())
+        }
+    }
 }
 
 @Service
@@ -32,6 +46,20 @@ class CourseService(val courseRepository: CourseRepository){
                 courseRepository.deleteById(courseId)
                 courseRepository.save(course)
             }
+        }
+    }
+
+    fun registerStudent(courseId: Int, student: Student) {
+        courseRepository.findById(courseId)?.let{
+            it.get().students.add(student)
+            courseRepository.save(it.get())
+        }
+    }
+
+    fun deregisterStudent(courseId: Int, student: Student) {
+        courseRepository.findById(courseId)?.let{
+            it.get().students.remove(student)
+            courseRepository.save(it.get())
         }
     }
 }
