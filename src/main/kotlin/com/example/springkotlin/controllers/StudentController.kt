@@ -2,10 +2,7 @@ package com.example.springkotlin.controllers
 
 import com.example.springkotlin.Student
 import com.example.springkotlin.StudentService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
@@ -17,6 +14,8 @@ class StudentController(var studentService: StudentService){
     fun getAllStudents(): Flux<Student> = studentService.getAllPersons()
 
     @GetMapping("/{studentId}")
-    fun getStudentById(@PathVariable studentId: Int): Mono<Student> = Mono.just(studentService.getPersonById(studentId))
+    fun getStudentById(@PathVariable studentId: String): Mono<Student>? = studentService.getPersonById(studentId)?.let { Mono.just(it) }
 
+    @PostMapping
+    fun saveStudent(student: Student) = studentService.save(student)
 }

@@ -1,7 +1,7 @@
 package com.example.springkotlin
 
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 
-interface StudentRepository : CrudRepository<Student, Int>
+interface StudentRepository : ReactiveMongoRepository<Student, String>
 
-interface CourseRepository : CrudRepository<Course, Int>
+interface CourseRepository : ReactiveMongoRepository<Course, String>
