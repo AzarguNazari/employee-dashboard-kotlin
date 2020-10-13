@@ -1,10 +1,10 @@
-package com.example.springkotlin
+package com.employeeDashboard
 
+import com.employeeDashboard.repository.CourseRepository
+import com.employeeDashboard.repository.StudentRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import reactor.kotlin.core.publisher.toFlux
-import reactor.kotlin.core.publisher.toMono
 
 @SpringBootApplication
 class SpringKotlinApplication(val courseRepository: CourseRepository,

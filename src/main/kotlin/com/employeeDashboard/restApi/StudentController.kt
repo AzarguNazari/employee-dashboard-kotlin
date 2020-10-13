@@ -1,8 +1,8 @@
-package com.example.springkotlin.restApi
+package com.employeeDashboard.restApi
 
-import com.example.springkotlin.Course
-import com.example.springkotlin.Student
-import com.example.springkotlin.StudentService
+import com.employeeDashboard.Course
+import com.employeeDashboard.Student
+import com.employeeDashboard.service.StudentService
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux

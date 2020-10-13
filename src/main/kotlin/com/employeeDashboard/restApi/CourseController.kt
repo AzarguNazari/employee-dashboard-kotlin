@@ -1,13 +1,12 @@
-package com.example.springkotlin.restApi
+package com.employeeDashboard.restApi
 
-import com.example.springkotlin.Course
-import com.example.springkotlin.CourseService
-import com.example.springkotlin.Student
+import com.employeeDashboard.Course
+import com.employeeDashboard.service.CourseService
+import com.employeeDashboard.Student
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import reactor.kotlin.core.publisher.toMono
 
 @RestController
 @RequestMapping("/api/courses")
