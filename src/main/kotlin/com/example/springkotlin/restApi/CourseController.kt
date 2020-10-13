@@ -1,4 +1,4 @@
-package com.example.springkotlin.controllers
+package com.example.springkotlin.restApi
 
 import com.example.springkotlin.Course
 import com.example.springkotlin.CourseService
@@ -25,7 +25,7 @@ class CourseController(val courseService: CourseService){
     fun getCourseById(@PathVariable courseId: Int): Mono<Course>? {
         val course : Course? = courseService.getCourseById(courseId)
         LOGGER.debug("course $course is retrieved")
-        return course?.let { it.toMono() }
+        return course?.toMono()
     }
 
     @DeleteMapping("/{courseId}")

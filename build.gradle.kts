@@ -21,6 +21,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     runtimeOnly("com.h2database:h2")
 
+//    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-starter-logging")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
@@ -32,6 +36,13 @@ dependencies {
     }
     testImplementation("io.projectreactor:reactor-test")
 }
+
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+}
+
 
 tasks.withType<Test> {
     useJUnitPlatform()
