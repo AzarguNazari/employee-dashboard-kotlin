@@ -17,7 +17,7 @@ class User(
         val password: String,
         @OneToOne(cascade = [ALL])
         @JoinColumn(name = "employee_username", referencedColumnName = "username")
-        val employee: Employee? = null
+        val employee: Employee = null
 )
 
 enum class Title {
@@ -27,17 +27,23 @@ enum class Title {
 @Entity
 @Table(name = "task")
 class Task(
-    @Id @GeneratedValue val id: Int = 0,
-    val taskname: String,
-    val description: String,
-    @Enumerated(EnumType.STRING)
-    val priority: Priority? = null,
-    val percentage: Double,
-    @Enumerated(EnumType.STRING)
-    val status: Status = Status.NOT_READY,
-    @ManyToMany(mappedBy = "tasks")
-    val assignedTo: Set<Employee>? = null
-)
+        @Id @GeneratedValue val id: Int = 0,
+        var taskname: String,
+        var description: String,
+        @Enumerated(EnumType.STRING)
+        var priority: Priority = null,
+        var percentage: Double,
+        @Enumerated(EnumType.STRING)
+        val status: Status = Status.NOT_READY,
+        @ManyToMany(mappedBy = "tasks")
+        val assignedTo: Set<Employee> = null
+){
+    constructor(taskname: String, description: String, priority: Priority){
+        this.taskname = taskname
+        this.description = description
+        this.priority = priority
+    }
+}
 
 enum class Status {
     DONE, READY, NOT_READY
@@ -113,7 +119,16 @@ class Employee(
 
     @OneToOne(mappedBy = "employee")
     val user: User
-)
+){
+    constructor(userName: String, firstName: String, lastName: String, password: String, salary: Int, title: Title){
+        this.username = userName
+        this.firstname = firstName
+        this.lastname = lastName
+        this.password = password
+        this.salary = salary
+        this.title = title
+    }
+}
 
 @Entity
 @Table(name = "attendance")
