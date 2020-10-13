@@ -1,7 +1,6 @@
-package com.example.springkotlin.controllers
+package com.example.springkotlin.restApi
 
 import com.example.springkotlin.Course
-import com.example.springkotlin.CourseService
 import com.example.springkotlin.Student
 import com.example.springkotlin.StudentService
 import org.slf4j.LoggerFactory

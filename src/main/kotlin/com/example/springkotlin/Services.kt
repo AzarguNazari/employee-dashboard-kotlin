@@ -24,14 +24,14 @@ class StudentService(val studentRepository: StudentRepository){
         }
 
     fun registerCourse(studentId: Int, course: Course) {
-        studentRepository.findById(studentId)?.let{
+        studentRepository.findById(studentId).let{
             it.get().courses.add(course)
             studentRepository.save(it.get())
         }
     }
 
     fun deregisterCourse(studentId: Int, course: Course) {
-        studentRepository.findById(studentId)?.let{
+        studentRepository.findById(studentId).let{
             it.get().courses.remove(course)
             studentRepository.save(it.get())
         }
