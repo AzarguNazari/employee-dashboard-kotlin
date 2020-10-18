@@ -2,17 +2,51 @@ package dashboard.exception
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id.CUSTOM
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
+import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase
 import org.springframework.http.HttpStatus
 import org.springframework.validation.FieldError
 import org.springframework.validation.ObjectError
 import java.time.LocalDateTime
-import java.util.*
+import java.util.ArrayList
 import java.util.function.Consumer
 
-@JsonTypeInfo(include = WRAPPER_OBJECT, use = CUSTOM, property = "error", visible = true)
+abstract class ApiSubError
+
+class UserNotFoundException : RuntimeException()
+
+class TaskNotFoundException : RuntimeException()
+
+class MessageNotFoundException : RuntimeException()
+
+class EmployeeNotFoundException : RuntimeException()
+
+class BadRequestException : RuntimeException()
+
+class AttendanceNotFoundException : RuntimeException()
+
+class AnnouncementNotFoundException : RuntimeException()
+
+class InvalidInput(message: String?) : RuntimeException(message)
+
+
+class LowerCaseClassNameResolver : TypeIdResolverBase() {
+
+    override fun idFromValue(value: Any) = value.javaClass.simpleName.toLowerCase()
+
+    override fun idFromValueAndType(value: Any, suggestedType: Class<*>?) = idFromValue(value)
+
+    override fun getMechanism(): JsonTypeInfo.Id = JsonTypeInfo.Id.CUSTOM
+}
+
+class ApiValidationError(val data: String,
+                         val message: String?,
+                         val rejectedValue: Any? = null,
+                         val field: String? = null
+) : ApiSubError()
+
+
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
 @JsonTypeIdResolver(LowerCaseClassNameResolver::class)
 class ApiError  {
 

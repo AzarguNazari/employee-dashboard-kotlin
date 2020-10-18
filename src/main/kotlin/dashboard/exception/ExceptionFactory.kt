@@ -1,6 +1,5 @@
 package dashboard.exception
 
-import dashboard.exception.ApiError
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
