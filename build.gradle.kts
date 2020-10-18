@@ -19,9 +19,7 @@ repositories {
 dependencies {
 
 	implementation("org.springdoc:springdoc-openapi-ui:1.2.28")
-	implementation("org.springdoc:springdoc-openapi-webmvc-core:1.2.28"){
-		//exclude("io.github.classgraph:classgraph")
-	}
+	implementation("org.springdoc:springdoc-openapi-webmvc-core:1.2.28")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-hateoas")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -50,10 +48,10 @@ configurations {
 	}
 }
 
-
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")

@@ -11,4 +11,4 @@ pluginManagement {
 		}
 	}
 }
-rootProject.name = "dashboard"
+rootProject.name = "employee-dashboard-kotlin"
