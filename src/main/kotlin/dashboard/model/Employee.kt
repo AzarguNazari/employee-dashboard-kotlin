@@ -23,16 +23,16 @@ class Employee(
 
         @OneToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "employee_roles", joinColumns = [JoinColumn(name = "employee_id")], inverseJoinColumns = [JoinColumn(name = "role_id")])
-        val roles: Set<Role> = mutableSetOf(),
+        var roles: Set<Role> = mutableSetOf(),
 
         @OneToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "message_employee", joinColumns = [JoinColumn(name = "employee_id")], inverseJoinColumns = [JoinColumn(name = "message_id")])
-        val messages: Set<Message> = mutableSetOf(),
+        var messages: Set<Message> = mutableSetOf(),
 
         @OneToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "attendance_employee", joinColumns = [JoinColumn(name = "employee_id")], inverseJoinColumns = [JoinColumn(name = "attendance_id")])
-        val attendance: Set<Message> = mutableSetOf(),
+        var attendance: Set<Message> = mutableSetOf(),
 
         @OneToOne(mappedBy = "employee")
-        val user: User? = null
+        var user: User? = null
 )
