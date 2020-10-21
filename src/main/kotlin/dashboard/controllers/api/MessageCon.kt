@@ -1,4 +1,4 @@
-//package com.employeeDashboard.controller
+package dashboard.controllers.api//package com.employeeDashboard.controller
 //
 //import com.dashboard.controller.interfaces.EmployeeControllerInterface
 //import com.dashboard.exception.*

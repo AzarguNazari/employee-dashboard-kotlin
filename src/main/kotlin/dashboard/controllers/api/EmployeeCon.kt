@@ -1,4 +1,4 @@
-package dashboard.controllers
+package dashboard.controllers.api
 
 
 import dashboard.controllers.interfaces.EmployeeControllerInterface
