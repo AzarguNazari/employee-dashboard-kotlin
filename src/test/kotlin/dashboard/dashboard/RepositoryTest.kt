@@ -1,8 +1,8 @@
 package dashboard.dashboard
 
-import dashboard.model.*
-import dashboard.repository.EmployeeRepository
-import dashboard.repository.TaskRepository
+import dashboard.models.*
+import dashboard.repositories.EmployeeRepository
+import dashboard.repositories.TaskRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

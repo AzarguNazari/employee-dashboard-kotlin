@@ -1,12 +1,8 @@
 package dashboard.config
 
-import dashboard.model.Employee
-import dashboard.model.Priority
-import dashboard.model.Task
-import dashboard.model.Title
-import dashboard.repository.RoleRepository
-import dashboard.repository.TaskRepository
-import dashboard.service.interfaces.EmployeeServiceInterface
+import dashboard.repositories.RoleRepository
+import dashboard.repositories.TaskRepository
+import dashboard.services.interfaces.EmployeeServiceInterface
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Configuration
