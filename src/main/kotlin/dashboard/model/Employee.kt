@@ -1,6 +1,10 @@
 package dashboard.model
 
 import javax.persistence.*
+import javax.persistence.CascadeType.MERGE
+import javax.persistence.CascadeType.PERSIST
+import javax.persistence.FetchType.EAGER
+import javax.persistence.FetchType.LAZY
 
 
 @Entity
@@ -10,29 +14,25 @@ class Employee(
         var id: Int = 0,
         var firstname: String,
         var lastname: String,
-        var username: String,
-        var password: String,
         var salary: Int,
 
         @Enumerated(EnumType.STRING)
         var title: Title = Title.NOT_DEFINED,
 
-        @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-        @JoinTable(name = "task_assign", joinColumns = [JoinColumn(name = "employee_id")], inverseJoinColumns = [JoinColumn(name = "task_id")])
+        @ManyToMany(fetch = LAZY, cascade = [PERSIST, MERGE])
+        @JoinTable(name = "employee_tasks",
+                joinColumns = [JoinColumn(name = "employee_id") ],
+                inverseJoinColumns = [ JoinColumn(name = "task_id") ])
         var tasks: Set<Task> = mutableSetOf(),
 
-        @OneToMany(fetch = FetchType.EAGER)
-        @JoinTable(name = "employee_roles", joinColumns = [JoinColumn(name = "employee_id")], inverseJoinColumns = [JoinColumn(name = "role_id")])
+
+        @ManyToMany(fetch = LAZY, cascade = [PERSIST, MERGE])
+        @JoinTable(name = "employee_roles",
+                joinColumns = [JoinColumn(name = "employee_id") ],
+                inverseJoinColumns = [ JoinColumn(name = "role_id") ])
         var roles: Set<Role> = mutableSetOf(),
 
-        @OneToMany(fetch = FetchType.EAGER)
-        @JoinTable(name = "message_employee", joinColumns = [JoinColumn(name = "employee_id")], inverseJoinColumns = [JoinColumn(name = "message_id")])
-        var messages: Set<Message> = mutableSetOf(),
-
-        @OneToMany(fetch = FetchType.EAGER)
-        @JoinTable(name = "attendance_employee", joinColumns = [JoinColumn(name = "employee_id")], inverseJoinColumns = [JoinColumn(name = "attendance_id")])
-        var attendance: Set<Message> = mutableSetOf(),
-
-        @OneToOne(mappedBy = "employee")
+        @OneToOne(fetch = LAZY, optional = false)
+        @JoinColumn(name = "user_id")
         var user: User? = null
 )

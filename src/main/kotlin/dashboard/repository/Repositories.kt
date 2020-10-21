@@ -8,9 +8,7 @@ interface AnnouncementRepository : JpaRepository<Announcement, Int>
 
 interface AttendanceRepository : JpaRepository<Attendance, Int>
 
-interface EmployeeRepository : JpaRepository<Employee, Int> {
-    fun findByUsername(username: String?): Optional<Employee>
-}
+interface EmployeeRepository : JpaRepository<Employee, Int>
 
 interface MessageRepository : JpaRepository<Message, Int>
 

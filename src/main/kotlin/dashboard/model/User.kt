@@ -12,9 +12,10 @@ class User(
         var id: Int = 0,
         var username: String,
         var password: String,
-        @OneToOne(cascade = [ALL])
-        @JoinColumn(name = "employee_id", referencedColumnName = "id")
-        val employee: Employee? = null
+        @OneToOne(fetch = FetchType.LAZY,
+                cascade =  [ALL],
+                mappedBy = "user")
+        var employee: Employee? = null
 )
 
 enum class Title { DEVELOPER, MANAGER, HR, NOT_DEFINED }

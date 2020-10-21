@@ -11,6 +11,8 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity?) {
         http {
             httpBasic {}
+            headers { frameOptions { disable() } }
+            csrf { disable() }
             authorizeRequests {
 //                authorize("/auth/**", hasAuthority("ROLE_ADMIN"))
                 authorize("/**", permitAll)

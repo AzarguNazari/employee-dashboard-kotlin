@@ -6,7 +6,9 @@ import javax.persistence.*
 @Table(name = "role")
 class Role(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "role_id")
-        val roleId: Int,
-        @Column(name = "role_name") val role: String
+        val id: Int = 0,
+        val role: String,
+
+        @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE], mappedBy = "roles")
+        val employees: Set<Employee> = mutableSetOf()
 )
