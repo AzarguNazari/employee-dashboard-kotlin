@@ -1,7 +1,7 @@
 package dashboard.services;
 
 import dashboard.models.jpa.Announcement;
-import dashboard.repositories.AnnouncementRepository;
+import repositories.AnnouncementRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

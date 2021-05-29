@@ -1,14 +1,13 @@
 package com.dashboard.services;
 
-import com.dashboard.models.JPA.Announcement;
+import models.JPA.Announcement;
 import com.dashboard.repositories.AnnouncementRepository;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import services.AnnouncementService;
 
 import java.sql.Date;
 import java.time.Instant;
