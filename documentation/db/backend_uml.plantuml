@@ -1,0 +1,57 @@
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "Role" as role{
+    *id: Integer <<PK>>
+    *name: Enum
+}
+
+entity "User" as user{
+    *email: String <<PK>>
+    *password: String
+    *role: String
+}
+
+entity "Employee" as employee {
+  *id : Integer <<PK>>
+  *FirstName : String
+  *LastName : String
+  *Age  : Integer
+  *email: String
+  *password: String
+  *position: String
+  *avatar: Image
+}
+
+entity "Task" as task {
+  *id : Integer <<PK>>
+  *name : String
+  *description : String
+  *status: Enum
+}
+
+entity "Vacation" as vacation {
+    *id: Integer <<PK>>
+    *startPeriod: Date
+    *endPeriod: Date
+}
+
+entity "Announcement" as announcement {
+    *id: Integer <<PK>>
+    *title: String
+    *description: String
+    *created_date: Date
+}
+
+employee }..{task
+employee }..{role
+user .. employee
+employee }..{vacation
+employee }..{announcement
+
+@enduml

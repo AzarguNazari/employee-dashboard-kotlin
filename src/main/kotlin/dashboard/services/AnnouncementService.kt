@@ -1,34 +1,45 @@
 package dashboard.services
 
-
-import dashboard.exception.AnnouncementNotFoundException
-import dashboard.models.Announcement
+import dashboard.exceptions.AnnouncementNotFoundException
+import dashboard.interfaces.serviceInterfaces.CrudOperations
+import dashboard.models.jpa.Announcement
 import dashboard.repositories.AnnouncementRepository
 import org.springframework.stereotype.Service
 
 @Service
-class AnnouncementService(val announcementRepository: AnnouncementRepository) : DAO<Announcement> {
+class AnnouncementService(val announcementRepository: AnnouncementRepository) : CrudOperations<Announcement?> {
 
-    override fun save(announcement: Announcement) {
-        announcementRepository.save(announcement)
+    override fun save(announcement: Announcement) = announcementRepository.save(announcement)
+
+    override fun delete(announcementId: Int) {
+        val byId = announcementRepository.findById(announcementId)
+        if (byId.isEmpty) throw AnnouncementNotFoundException()
+        announcementRepository.deleteById(announcementId)
     }
 
-    override fun delete(id: Int) {
-        announcementRepository.deleteById(id)
-    }
-
-    override fun update(id: Int, announcement: Announcement) {
-        if(exist(id)){
-            announcement.id = id
-            announcementRepository.deleteById(id)
+    override fun update(announcementId: Int, announcement: Announcement) {
+        if (exist(announcementId)) {
+            delete(announcementId)
+            announcement.setId(announcementId)
             announcementRepository.save(announcement)
-        }
-        throw AnnouncementNotFoundException()
+        } else throw AnnouncementNotFoundException()
     }
 
-    override fun getAll() = announcementRepository.findAll().toList()
+    override fun exist(announcementId: Int): Boolean {
+        return announcementRepository.findById(announcementId).isPresent
+    }
 
-    override fun getById(id: Int) = announcementRepository.findById(id)?.get()
+    override fun getById(announcementId: Int): Announcement {
+        return announcementRepository.findById(announcementId).orElseThrow { AnnouncementNotFoundException() }
+    }
 
-    override fun exist(id: Int) = announcementRepository.existsById(id)
+    override fun update(id: Int, `object`: Announcement?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun all(): List<Announcement?>? {
+        TODO("Not yet implemented")
+    }
+
+    override fun save(announcement: Announcement?) = announcementRepository.save(announcement)
 }
