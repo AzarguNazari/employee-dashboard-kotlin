@@ -1,0 +1,24 @@
+@startuml
+
+package "Backend" as backend {
+
+}
+
+node "Analytics" as analytics {
+
+}
+
+node "Front-End" as frontend{
+
+}
+
+node "Rabbitmq" as rabbitmq{
+
+}
+
+backend -> frontend
+backend -> analytics
+backend -> rabbitmq
+
+
+@enduml
