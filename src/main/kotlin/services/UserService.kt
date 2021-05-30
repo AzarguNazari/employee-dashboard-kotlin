@@ -1,56 +1,42 @@
-package services;
+package services
 
-import exceptions.UserNotFoundException;
-import models.JPA.User;
-import com.dashboard.repositories.UserRepository;
-import interfaces.serviceInterfaces.UserServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import com.dashboard.repositories.UserRepository
+import interfaces.serviceInterfaces.UserServiceInterface
+import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
-public class UserService implements UserServiceInterface {
-
+class UserService : UserServiceInterface {
     @Autowired
-    private UserRepository userRepository;
-
-    @Override
-    public void save(User user) {
-        userRepository.save(user);
+    private val userRepository: UserRepository? = null
+    override fun save(user: User?) {
+        userRepository.save(user)
     }
 
-    @Override
-    public void delete(Integer userId) {
-        final Optional<User> byId = userRepository.findById(userId);
-        if(byId.isEmpty()) throw new UserNotFoundException();
-        userRepository.deleteById(userId);
+    override fun delete(userId: Int?) {
+        val byId: Optional<User> = userRepository.findById(userId)
+        if (byId.isEmpty) throw UserNotFoundException()
+        userRepository.deleteById(userId)
     }
 
-    @Override
-    public void update(Integer userId, User user) {
-        final Optional<User> byId = userRepository.findById(userId);
-        if(byId.isEmpty()) throw new UserNotFoundException();
-        user.setId(userId);
-        userRepository.deleteById(userId);
-        userRepository.save(user);
+    override fun update(userId: Int?, user: User) {
+        val byId: Optional<User> = userRepository.findById(userId)
+        if (byId.isEmpty) throw UserNotFoundException()
+        user.setId(userId)
+        userRepository.deleteById(userId)
+        userRepository.save(user)
     }
 
-    @Override
-    public boolean exist(Integer userId) {
-        return userRepository.findById(userId).isPresent();
+    override fun exist(userId: Int?): Boolean {
+        return userRepository.findById(userId).isPresent()
     }
 
-    @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+    override val allUsers: List<User?>
+        get() = userRepository.findAll()
 
-    @Override
-    public User getUserById(Integer userId) {
-        final Optional<User> byId = userRepository.findById(userId);
-        if(byId.isEmpty()) throw new UserNotFoundException();
-        return byId.get();
+    override fun getUserById(userId: Int?): User {
+        val byId: Optional<User> = userRepository.findById(userId)
+        if (byId.isEmpty) throw UserNotFoundException()
+        return byId.get()
     }
 }

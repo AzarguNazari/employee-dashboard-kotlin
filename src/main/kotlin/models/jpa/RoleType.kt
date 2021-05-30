@@ -1,4 +1,4 @@
-package dashboard.models.jpa
+package models.jpa
 
 enum class RoleType {
     ADMIN, USER

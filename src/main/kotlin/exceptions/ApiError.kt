@@ -1,23 +1,25 @@
-package dashboard.exceptions
+package exceptions
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
-import dashboard.exceptions.LowerCaseClassNameResolver
 import org.springframework.http.HttpStatus
-import com.fasterxml.jackson.annotation.JsonFormat
-import java.time.LocalDateTime
-import dashboard.exceptions.ApiSubError
-import dashboard.exceptions.ApiValidationError
-import lombok.Data
 import org.springframework.validation.FieldError
 import org.springframework.validation.ObjectError
-import java.util.ArrayList
+import java.time.LocalDateTime
 import java.util.function.Consumer
 
-@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
-@JsonTypeIdResolver(LowerCaseClassNameResolver::class)
-class ApiError private constructor() {
 
+@JsonTypeInfo(
+    include = JsonTypeInfo.As.WRAPPER_OBJECT,
+    use = JsonTypeInfo.Id.CUSTOM,
+    property = "error",
+    visible = true
+)
+@JsonTypeIdResolver(
+    LowerCaseClassNameResolver::class
+)
+class ApiError private constructor() {
     private var status: HttpStatus? = null
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")

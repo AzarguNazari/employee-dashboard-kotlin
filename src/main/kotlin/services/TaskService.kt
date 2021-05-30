@@ -1,96 +1,75 @@
-package services;
+package services
 
-import exceptions.EmployeeNotFoundException;
-import interfaces.serviceInterfaces.CrudOperations;
-import models.JPA.Priority;
-import models.JPA.Task;
-import com.dashboard.repositories.TaskRepository;
-import interfaces.serviceInterfaces.TaskServiceInterface;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import com.dashboard.repositories.TaskRepository
+import interfaces.serviceInterfaces.CrudOperations
+import interfaces.serviceInterfaces.TaskServiceInterface
+import org.springframework.stereotype.Service
+import java.util.*
+import javax.transaction.Transactional
 
 @Service
 @Slf4j
 @Transactional
-public class TaskService implements CrudOperations<Task>, TaskServiceInterface {
-
-    private final TaskRepository taskRepository;
-
-    public TaskService(TaskRepository taskRepository){
-        this.taskRepository = taskRepository;
+class TaskService(taskRepository: TaskRepository) : CrudOperations<Task>, TaskServiceInterface {
+    private val taskRepository: TaskRepository
+    override fun deleteAll() {
+        taskRepository.deleteAll()
     }
 
-    @Override
-    public void deleteAll() {
-        taskRepository.deleteAll();
+    override fun addAllTasks(tasks: List<Task?>) {
+        tasks.forEach(taskRepository::save)
     }
 
-    @Override
-    public void addAllTasks(List<Task> tasks) {
-        tasks.forEach(taskRepository::save);
+    override fun save(task: Task) {
+        taskRepository.save(task)
     }
 
-    @Override
-    public void save(Task task) {
-        taskRepository.save(task);
+    override fun getById(id: Int): Task {
+        val byId: Optional<Task> = taskRepository.findById(id)
+        return if (byId.isPresent) byId.get() else throw EmployeeNotFoundException()
     }
 
-    @Override
-    public Task getById(int id) {
-        final Optional<Task> byId = taskRepository.findById(id);
-        if(byId.isPresent()) return byId.get();
-        else throw new EmployeeNotFoundException();
+    override val all: List<T>
+        get() = taskRepository.findAll()
+
+    override fun totalEmployees(): Long {
+        return taskRepository.count()
     }
 
-    public List<Task> getAll(){
-        return taskRepository.findAll();
+    override fun getTaskByPriority(priority: Priority): List<Task?> {
+        return taskRepository.findByPriority(priority.toString())
     }
 
-    @Override
-    public Long totalEmployees() {
-        return taskRepository.count();
+    override fun delete(id: Int) {
+        taskRepository.deleteById(id)
     }
 
-    @Override
-    public List<Task> getTaskByPriority(Priority priority) {
-        return taskRepository.findByPriority(priority.toString());
-    }
-
-    @Override
-    public void delete(int id) {
-        taskRepository.deleteById(id);
-    }
-
-    @Override
-    public void update(int taskId, Task task) {
-        Optional<Task> foundTask = taskRepository.findById(taskId);
-        if(foundTask.isPresent()){
-            task.setId(taskId);
-            taskRepository.deleteById(taskId);
-            taskRepository.save(task);
+    override fun update(taskId: Int, task: Task) {
+        val foundTask: Optional<Task> = taskRepository.findById(taskId)
+        if (foundTask.isPresent) {
+            task.id = taskId
+            taskRepository.deleteById(taskId)
+            taskRepository.save(task)
         }
     }
 
-    @Override
-    public List<Task> findTaskByStatus(String status) {
-        return taskRepository.findByPriority(status);
+    override fun findTaskByStatus(status: String?): List<Task?> {
+        return taskRepository.findByPriority(status)
     }
 
-    @Override
-    public boolean exist(int taskId) {
-        return taskRepository.findById(taskId).isEmpty();
+    override fun exist(taskId: Int): Boolean {
+        return taskRepository.findById(taskId).isEmpty()
     }
 
-    @Override
-    public long count() {
-        return taskRepository.count();
+    override fun count(): Long {
+        return taskRepository.count()
     }
 
-    public void removeTask(int taskID){
-        taskRepository.deleteById(taskID);
+    fun removeTask(taskID: Int) {
+        taskRepository.deleteById(taskID)
+    }
+
+    init {
+        this.taskRepository = taskRepository
     }
 }

@@ -1,20 +1,13 @@
-package interfaces.serviceInterfaces;
+package interfaces.serviceInterfaces
 
-import models.JPA.Employee;
+import dashboard.models.jpa.Employee
+import java.util.*
 
-import java.util.List;
-import java.util.Optional;
-
-public interface EmployeeServiceInterface {
-    void deleteAllEmployees();
-
-    void addAllEmployees(List<Employee> users);
-
-    Optional<Employee> getByUsername(String username);
-
-    void assignTask(Integer employeeId, Integer taskID);
-
-    void unassignTask(Integer employeeId, Integer taskID);
-
-    long count();
+interface EmployeeServiceInterface {
+    fun deleteAllEmployees()
+    fun addAllEmployees(users: List<Employee>)
+    fun getByUsername(username: String): Optional<Employee>
+    fun assignTask(employeeId: Int, taskID: Int)
+    fun unassignTask(employeeId: Int, taskID: Int)
+    fun count(): Long
 }

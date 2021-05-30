@@ -1,86 +1,84 @@
-package controllers;
+package controllers
 
-import dashboard.interfaces.controllerInterfaces.AnnouncementControllerInterface;
-import dashboard.exceptions.*;
-import dashboard.models.jpa.Announcement;
-import dashboard.services.AnnouncementService;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import dashboard.exceptions.*
+import dashboard.models.jpa.Announcement
+import dashboard.services.AnnouncementService
+import java.lang.Exception
 
 @Log4j2
 @RestController
 @RequestMapping("/api/v1/announcements")
-public class AnnouncementsController implements AnnouncementControllerInterface {
-
+class AnnouncementsController : AnnouncementControllerInterface {
     @Autowired
-    private AnnouncementService announcementService;
-
-    @Override
-    public ResponseEntity<?> createAnnouncement(Announcement announcement) {
-        try{
-            announcementService.save(announcement);
-            log.debug("New announcement {} is created", announcement);
-            return new ResponseEntity<>("New employee created", HttpStatus.CREATED);
-        }
-        catch(BadRequestException ex){
-            return new ResponseEntity<>(new ApiError("Announcement with id " + announcement.getId() + " is already existed", HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
-        }
-        catch(Exception ex){
-            return new ResponseEntity<>(new ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public ResponseEntity<?> getAllEmployees() {
-        try{
-            return new ResponseEntity<>(announcementService.getAll(), HttpStatus.OK);
-        }
-        catch(Exception ex){
-            return new ResponseEntity<>(new ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+    private val announcementService: AnnouncementService? = null
+    override fun createAnnouncement(announcement: Announcement?): ResponseEntity<*> {
+        return try {
+            announcementService.save(announcement)
+            AnnouncementsController.log.debug("New announcement {} is created", announcement)
+            ResponseEntity<String>("New employee created", HttpStatus.CREATED)
+        } catch (ex: BadRequestException) {
+            ResponseEntity<ApiError>(
+                ApiError(
+                    "Announcement with id " + announcement!!.id + " is already existed",
+                    HttpStatus.BAD_REQUEST
+                ), HttpStatus.BAD_REQUEST
+            )
+        } catch (ex: Exception) {
+            ResponseEntity<ApiError>(
+                ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR),
+                HttpStatus.INTERNAL_SERVER_ERROR
+            )
         }
     }
 
-    @Override
-    public ResponseEntity<?> getEmployeeById(Integer announcementID) {
-        try{
-            return new ResponseEntity<>(announcementService.getById(announcementID), HttpStatus.OK);
+    val allEmployees: ResponseEntity<*>
+        get() = try {
+            ResponseEntity<Any?>(announcementService.getAll(), HttpStatus.OK)
+        } catch (ex: Exception) {
+            ResponseEntity<ApiError>(
+                ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR),
+                HttpStatus.INTERNAL_SERVER_ERROR
+            )
         }
-        catch(Exception ex){
-            return new ResponseEntity<>(new ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+
+    override fun getEmployeeById(announcementID: Int?): ResponseEntity<*> {
+        return try {
+            ResponseEntity<Any?>(announcementService.getById(announcementID), HttpStatus.OK)
+        } catch (ex: Exception) {
+            ResponseEntity<ApiError>(
+                ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR),
+                HttpStatus.INTERNAL_SERVER_ERROR
+            )
         }
     }
 
-    @Override
-    public ResponseEntity<?> deleteEmployeeById(Integer announcementID) {
-        try{
-            announcementService.delete(announcementID);
-            log.debug("Announcement with id {} is deleted", announcementID);
-            return new ResponseEntity<>("Announcement with id " + announcementID + " is deleted", HttpStatus.OK);
-        }
-        catch(AnnouncementNotFoundException ex){
-            return ExceptionFactory.ANNOUNCEMENT_NOT_FOUND(announcementID);
-        }
-        catch(Exception ex){
-            return new ResponseEntity<>(new ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+    override fun deleteEmployeeById(announcementID: Int?): ResponseEntity<*> {
+        return try {
+            announcementService.delete(announcementID)
+            AnnouncementsController.log.debug("Announcement with id {} is deleted", announcementID)
+            ResponseEntity<String>("Announcement with id $announcementID is deleted", HttpStatus.OK)
+        } catch (ex: AnnouncementNotFoundException) {
+            ExceptionFactory.ANNOUNCEMENT_NOT_FOUND(announcementID!!)
+        } catch (ex: Exception) {
+            ResponseEntity<ApiError>(
+                ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR),
+                HttpStatus.INTERNAL_SERVER_ERROR
+            )
         }
     }
 
-    @Override
-    public ResponseEntity<?> updateEmployee(Integer announcementID, Announcement announcement) {
-        try{
-            announcementService.update(announcementID, announcement);
-            log.debug("Announcement {} is updated", announcement);
-            return new ResponseEntity<>("Announcement with id " + announcement + " is updated", HttpStatus.OK);
-        }
-        catch(AttendanceNotFoundException ex){
-            return ExceptionFactory.ANNOUNCEMENT_NOT_FOUND(announcementID);
-        }
-        catch(Exception ex){
-            return new ResponseEntity<>(new ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+    override fun updateEmployee(announcementID: Int?, announcement: Announcement?): ResponseEntity<*> {
+        return try {
+            announcementService.update(announcementID, announcement)
+            AnnouncementsController.log.debug("Announcement {} is updated", announcement)
+            ResponseEntity<String>("Announcement with id $announcement is updated", HttpStatus.OK)
+        } catch (ex: AttendanceNotFoundException) {
+            ExceptionFactory.ANNOUNCEMENT_NOT_FOUND(announcementID!!)
+        } catch (ex: Exception) {
+            ResponseEntity<ApiError>(
+                ApiError("Internal error happened on backend", HttpStatus.INTERNAL_SERVER_ERROR),
+                HttpStatus.INTERNAL_SERVER_ERROR
+            )
         }
     }
 }

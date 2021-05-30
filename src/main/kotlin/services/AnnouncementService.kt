@@ -1,58 +1,38 @@
-package services;
+package services
 
-import exceptions.AnnouncementNotFoundException;
-import interfaces.serviceInterfaces.CrudOperations;
-import models.JPA.Announcement;
-import com.dashboard.repositories.AnnouncementRepository;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import dashboard.exceptions.AnnouncementNotFoundException
+import dashboard.models.jpa.Announcement
+import interfaces.serviceInterfaces.CrudOperations
+import org.springframework.stereotype.Service
+import repositories.AnnouncementRepository
+import java.util.*
 
 @Service
-public class AnnouncementService implements CrudOperations<Announcement> {
+class AnnouncementService(val announcementRepository: AnnouncementRepository) : CrudOperations<Announcement> {
 
-    private AnnouncementRepository announcementRepository;
-
-    public AnnouncementService(AnnouncementRepository announcementRepository) {
-        this.announcementRepository = announcementRepository;
+    override fun save(announcement: Announcement) {
+        announcementRepository.save(announcement)
     }
 
-
-    @Override
-    public void save(Announcement announcement) {
-        announcementRepository.save(announcement);
+    override fun delete(announcementId: Int) {
+        val byId: Optional<Announcement> = announcementRepository.findById(announcementId)
+        if (byId.isEmpty) throw AnnouncementNotFoundException()
+        announcementRepository.deleteById(announcementId)
     }
 
-    @Override
-    public void delete(int announcementId) {
-        final Optional<Announcement> byId = announcementRepository.findById(announcementId);
-        if(byId.isEmpty()) throw new AnnouncementNotFoundException();
-        announcementRepository.deleteById(announcementId);
+    override fun update(announcementId: Int, announcement: Announcement) {
+        if (exist(announcementId)) {
+            delete(announcementId)
+            announcement.id = announcementId
+            announcementRepository.save(announcement)
+        } else throw AnnouncementNotFoundException()
     }
 
-    @Override
-    public void update(int announcementId, Announcement announcement) {
-        if(exist(announcementId)){
-            delete(announcementId);
-            announcement.setId(announcementId);
-            announcementRepository.save(announcement);
-        }
-        else throw new AnnouncementNotFoundException();
-    }
+    override fun exist(announcementId: Int) = announcementRepository.findById(announcementId).isPresent
 
-    @Override
-    public boolean exist(int announcementId) {
-        return announcementRepository.findById(announcementId).isPresent();
-    }
 
-    @Override
-    public List<Announcement> getAll() {
-        return announcementRepository.findAll();
-    }
+    override fun all(): List<Announcement> = announcementRepository.findAll()
 
-    @Override
-    public Announcement getById(int announcementId) {
-        return announcementRepository.findById(announcementId).orElseThrow(AnnouncementNotFoundException::new);
+    override fun getById(announcementId: Int) = announcementRepository.findById(announcementId).orElseThrow { AnnouncementNotFoundException() }
     }
 }

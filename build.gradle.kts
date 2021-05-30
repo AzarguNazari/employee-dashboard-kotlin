@@ -7,7 +7,7 @@ plugins {
 	kotlin("plugin.spring") version "1.5.10"
 }
 
-group = "com.dashboard"
+//group = "service.message"
 version = "1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 

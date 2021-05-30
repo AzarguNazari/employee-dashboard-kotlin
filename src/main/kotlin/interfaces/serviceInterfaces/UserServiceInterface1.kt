@@ -1,14 +1,12 @@
-package interfaces.serviceInterfaces;
+package interfaces.serviceInterfaces
 
-import models.JPA.User;
+import models.jpa.User
 
-import java.util.List;
-
-public interface UserServiceInterface {
-    void save(User user);
-    void delete(Integer userId);
-    void update(Integer userId, User user);
-    boolean exist(Integer userId);
-    List<User> getAllUsers();
-    User getUserById(Integer userId);
+interface UserServiceInterface {
+    fun save(user: User)
+    fun delete(userId: Int)
+    fun update(userId: Int, user: User)
+    fun exist(userId: Int): Boolean
+    val allUsers: List<User>
+    fun getUserById(userId: Int): User
 }

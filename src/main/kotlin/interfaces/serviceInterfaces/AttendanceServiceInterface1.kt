@@ -1,14 +1,12 @@
-package interfaces.serviceInterfaces;
+package interfaces.serviceInterfaces
 
-import models.JPA.Attendance;
+import models.jpa.Attendance
 
-import java.util.List;
-
-public interface AttendanceServiceInterface {
-    void save(Attendance attendance);
-    void delete(Integer attendanceId);
-    void update(Integer attendanceId, Attendance attendance);
-    boolean exist(Integer attendanceId);
-    List<Attendance> getAllAttendances();
-    Attendance getAttendanceById(Integer attendanceId);
+interface AttendanceServiceInterface {
+    fun save(attendance: Attendance?)
+    fun delete(attendanceId: Int?)
+    fun update(attendanceId: Int?, attendance: Attendance?)
+    fun exist(attendanceId: Int?): Boolean
+    val allAttendances: List<Attendance?>?
+    fun getAttendanceById(attendanceId: Int?): Attendance?
 }

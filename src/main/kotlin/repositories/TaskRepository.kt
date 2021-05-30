@@ -1,11 +1,9 @@
-package repositories;
+package repositories
 
-import dashboard.models.jpa.Task;
-import org.springframework.data.jpa.repository.JpaRepository;
+import dashboard.models.jpa.Task
+import org.springframework.data.jpa.repository.JpaRepository
 
-import java.util.List;
-
-public interface TaskRepository extends JpaRepository<Task, Integer> {
-    List<Task> findByPriority(String priority);
-    List<Task> findTasksByStatus(String status);
+interface TaskRepository : JpaRepository<Task?, Int?> {
+    fun findByPriority(priority: String?): List<Task?>?
+    fun findTasksByStatus(status: String?): List<Task?>?
 }

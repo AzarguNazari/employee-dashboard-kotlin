@@ -1,8 +1,6 @@
-package repositories;
+package repositories
 
-import dashboard.models.jpa.Announcement;
-import org.springframework.data.jpa.repository.JpaRepository;
+import dashboard.models.jpa.Announcement
+import org.springframework.data.jpa.repository.JpaRepository
 
-public interface AnnouncementRepository extends JpaRepository<Announcement, Integer> {
-
-}
+interface AnnouncementRepository : JpaRepository<Announcement?, Int?>

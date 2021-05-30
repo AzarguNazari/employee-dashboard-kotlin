@@ -1,6 +1,8 @@
 package dashboard.models.jpa
 
 import com.sun.istack.NotNull
+import models.jpa.Priority
+import models.jpa.Status
 import javax.persistence.*
 
 @Entity

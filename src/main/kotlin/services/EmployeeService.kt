@@ -1,109 +1,84 @@
-package services;
+package services
 
-import exceptions.BadRequestException;
-import exceptions.EmployeeNotFoundException;
-import exceptions.TaskNotFoundException;
-import interfaces.serviceInterfaces.CrudOperations;
-import models.JPA.Employee;
-import com.dashboard.repositories.EmployeeRepository;
-import com.dashboard.repositories.TaskRepository;
-import interfaces.serviceInterfaces.EmployeeServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import com.dashboard.repositories.EmployeeRepository
+import interfaces.serviceInterfaces.CrudOperations
+import interfaces.serviceInterfaces.EmployeeServiceInterface
+import models.JPA.Employee
+import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
-public class EmployeeService implements CrudOperations<Employee>, EmployeeServiceInterface {
+class EmployeeService : CrudOperations<Employee>, EmployeeServiceInterface {
+    @Autowired
+    private val employeeRepository: EmployeeRepository? = null
 
     @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private TaskRepository taskRepository;
-
-
-    @Override
-    public void deleteAllEmployees(){
-        employeeRepository.deleteAll();
+    private val taskRepository: TaskRepository? = null
+    override fun deleteAllEmployees() {
+        employeeRepository.deleteAll()
     }
 
-    @Override
-    public void addAllEmployees(List<Employee> users){
-        employeeRepository.saveAll(users);
+    override fun addAllEmployees(users: List<Employee?>?) {
+        employeeRepository.saveAll(users)
     }
 
-    @Override
-    public void save(Employee employee){
-        if(employee.getId() != null){
-            final Optional<Employee> byId = employeeRepository.findById(employee.getId());
-            if(byId.isPresent()) throw new BadRequestException();
-        }
-        else{
-            employeeRepository.save(employee);
+    override fun save(employee: Employee) {
+        if (employee.id != null) {
+            val byId: Optional<Employee> = employeeRepository.findById(employee.id)
+            if (byId.isPresent) throw BadRequestException()
+        } else {
+            employeeRepository.save(employee)
         }
     }
 
-    @Override
-    public List<Employee> getAll(){
-        return employeeRepository.findAll();
+    override val all: List<T>
+        get() = employeeRepository.findAll()
+
+    override fun getById(id: Int): Employee {
+        return employeeRepository.findById(id).orElseThrow { EmployeeNotFoundException() }
     }
 
-    @Override
-    public Employee getById(int id){
-        return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
+    override fun getByUsername(username: String?): Optional<Employee?> {
+        return employeeRepository.findByUsername(username)
     }
 
-    @Override
-    public Optional<Employee> getByUsername(String username){
-        return employeeRepository.findByUsername(username);
+    override fun delete(employeeID: Int) {
+        val employee: Optional<Employee> = employeeRepository.findById(employeeID)
+        if (employee.isEmpty) throw EmployeeNotFoundException()
+        employeeRepository.deleteById(employeeID)
     }
 
-    @Override
-    public void delete(int employeeID){
-        final Optional<Employee> employee = employeeRepository.findById(employeeID);
-        if(employee.isEmpty()) throw new EmployeeNotFoundException();
-        employeeRepository.deleteById(employeeID);
+    override fun update(employeeId: Int, employee: Employee) {
+        val emp: Optional<Employee> = employeeRepository.findById(employeeId)
+        if (emp.isEmpty) throw EmployeeNotFoundException()
+        employee.id = employeeId
+        employeeRepository.deleteById(employeeId)
+        employeeRepository.save(employee)
     }
 
-    @Override
-    public void update(int employeeId, Employee employee) {
-        final Optional<Employee> emp = employeeRepository.findById(employeeId);
-        if(emp.isEmpty()) throw new EmployeeNotFoundException();
-        employee.setId(employeeId);
-        employeeRepository.deleteById(employeeId);
-        employeeRepository.save(employee);
-    }
-
-    @Override
-    public void assignTask(Integer employeeId, Integer taskID) {
+    override fun assignTask(employeeId: Int?, taskID: Int?) {
         employeeRepository.findById(employeeId)
-                .orElseThrow(EmployeeNotFoundException::new)
-                .getTasks()
-                .add(taskRepository.findById(employeeId)
-                        .orElseThrow(TaskNotFoundException::new)
-                );
+            .orElseThrow { EmployeeNotFoundException() }
+            .getTasks()
+            .add(taskRepository.findById(employeeId)
+                .orElseThrow { TaskNotFoundException() }
+            )
     }
 
-    @Override
-    public void unassignTask(Integer employeeId, Integer taskID) {
+    override fun unassignTask(employeeId: Int?, taskID: Int?) {
         employeeRepository.findById(employeeId)
-                          .orElseThrow(EmployeeNotFoundException::new)
-                          .getTasks()
-                          .remove(taskRepository.findById(employeeId)
-                                                .orElseThrow(TaskNotFoundException::new)
-                          );
+            .orElseThrow { EmployeeNotFoundException() }
+            .getTasks()
+            .remove(taskRepository.findById(employeeId)
+                .orElseThrow { TaskNotFoundException() }
+            )
     }
 
-    @Override
-    public boolean exist(int employeeId) {
-        return employeeRepository.findById(employeeId).isPresent();
+    override fun exist(employeeId: Int): Boolean {
+        return employeeRepository.findById(employeeId).isPresent()
     }
 
-    @Override
-    public long count() {
-        return employeeRepository.count();
+    override fun count(): Long {
+        return employeeRepository.count()
     }
-
 }

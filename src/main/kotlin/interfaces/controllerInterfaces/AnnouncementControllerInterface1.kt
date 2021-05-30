@@ -1,44 +1,67 @@
-package interfaces.controllerInterfaces;
+package interfaces.controllerInterfaces
 
-import models.JPA.Announcement;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import dashboard.models.jpa.Announcement
+import org.springframework.http.ResponseEntity
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.web.bind.annotation.*
 
 @Tag(name = "Announcements")
-public interface AnnouncementControllerInterface {
-
+interface AnnouncementControllerInterface {
     @PostMapping
-    @ApiResponses(value = {@ApiResponse(description = "Successfully created a new announcement",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Successfully created a new announcement",
             responseCode = "201",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> createAnnouncement(@RequestBody Announcement announcement);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun createAnnouncement(@RequestBody announcement: Announcement?): ResponseEntity<*>?
 
-    @GetMapping
-    @ApiResponses(value = {@ApiResponse(description = "Get all announcements",
+    @get:ApiResponses(
+        value = [ApiResponse(
+            description = "Get all announcements",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> getAllEmployees();
+            content = arrayOf(
+                Content(
+                    schema = Schema(implementation = ResponseEntity::class)
+                )
+            )
+        )]
+    )
+    @get:GetMapping
+    val allEmployees: ResponseEntity<*>?
 
     @GetMapping("/{announcementID}")
-    @ApiResponses(value = {@ApiResponse(description = "Get an attendance with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Get an attendance with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> getEmployeeById(@PathVariable Integer announcementID);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun getEmployeeById(@PathVariable announcementID: Int?): ResponseEntity<*>?
 
     @DeleteMapping("/{announcementID}")
-    @ApiResponses(value = {@ApiResponse(description = "Delete an announcement with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Delete an announcement with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> deleteEmployeeById(@PathVariable Integer announcementID);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun deleteEmployeeById(@PathVariable announcementID: Int?): ResponseEntity<*>?
 
     @PutMapping("/{announcementID}")
-    @ApiResponses(value = {@ApiResponse(description = "Update an announcement with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Update an announcement with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> updateEmployee(@PathVariable Integer announcementID, @RequestBody Announcement announcement);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun updateEmployee(@PathVariable announcementID: Int?, @RequestBody announcement: Announcement?): ResponseEntity<*>?
 }

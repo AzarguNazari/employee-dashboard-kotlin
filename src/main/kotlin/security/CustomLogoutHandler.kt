@@ -1,4 +1,6 @@
-package security;//package com.example.dashboard.employeedashboard.security;
+package security
+
+//package com.example.dashboard.employeedashboard.security;
 //
 //import com.example.dashboard.employeedashboard.util.UserUtils;
 //import org.springframework.security.core.Authentication;

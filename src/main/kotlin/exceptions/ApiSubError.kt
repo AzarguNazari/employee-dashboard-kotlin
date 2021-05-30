@@ -1,3 +1,3 @@
-package dashboard.exceptions
+package exceptions
 
-abstract class ApiSubError 
+abstract class ApiSubError

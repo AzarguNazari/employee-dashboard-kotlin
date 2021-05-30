@@ -1,10 +1,9 @@
-package repositories;
+package repositories
 
-import dashboard.models.jpa.Employee;
-import org.springframework.data.jpa.repository.JpaRepository;
+import dashboard.models.jpa.Employee
+import org.springframework.data.jpa.repository.JpaRepository
+import java.util.*
 
-import java.util.Optional;
-
-public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-    Optional<Employee> findByUsername(String username);
+interface EmployeeRepository : JpaRepository<Employee?, Int?> {
+    fun findByUsername(username: String?): Optional<Employee?>?
 }

@@ -1,10 +1,9 @@
-package repositories;
+package repositories
 
-import dashboard.models.jpa.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import models.jpa.User
+import org.springframework.data.jpa.repository.JpaRepository
+import java.util.*
 
-import java.util.Optional;
-
-public interface UserRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByUsername(String username);
+interface UserRepository : JpaRepository<User?, Int?> {
+    fun findByUsername(username: String?): Optional<User?>?
 }

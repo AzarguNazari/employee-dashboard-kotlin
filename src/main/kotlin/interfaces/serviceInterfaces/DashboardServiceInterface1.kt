@@ -1,7 +1,7 @@
-package interfaces.serviceInterfaces;
+package interfaces.serviceInterfaces
 
-import models.JPA.EmployeeDto;
+import models.jpa.EmployeeDto
 
-public interface DashboardServiceInterface {
-    void createAccount(EmployeeDto employeeDto);
+interface DashboardServiceInterface {
+    fun createAccount(employeeDto: EmployeeDto)
 }

@@ -1,4 +1,6 @@
-package controllers;//package dashboard.controllers;
+package controllers
+
+//package dashboard.controllers;
 //
 //import dashboard.interfaces.controllerInterfaces.TaskControllerInterface;
 //import dashboard.exceptions.ApiError;

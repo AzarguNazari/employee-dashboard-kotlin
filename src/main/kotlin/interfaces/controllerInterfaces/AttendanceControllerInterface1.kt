@@ -1,45 +1,64 @@
-package interfaces.controllerInterfaces;
+package interfaces.controllerInterfaces
 
-import models.JPA.Attendance;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
+import models.jpa.Attendance
+import org.springframework.data.domain.Pageable
+import org.springframework.web.bind.annotation.*
 
 @Tag(name = "Attendances")
-public interface AttendanceControllerInterface {
-
+interface AttendanceControllerInterface {
     @PostMapping
-    @ApiResponses(value = {@ApiResponse(description = "Successfully created new attendance",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Successfully created new attendance",
             responseCode = "201",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> createAttendance(@RequestBody Attendance attendance);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun createAttendance(@RequestBody attendance: Attendance?): ResponseEntity<*>?
 
     @GetMapping
-    @ApiResponses(value = {@ApiResponse(description = "Get all attendances",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Get all attendances",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> getAllAttendances(Pageable pageable);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun getAllAttendances(pageable: Pageable?): ResponseEntity<*>?
 
     @GetMapping("/{attendanceID}")
-    @ApiResponses(value = {@ApiResponse(description = "Get an attendance task with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Get an attendance task with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> getAttendanceById(@PathVariable Integer attendanceID);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun getAttendanceById(@PathVariable attendanceID: Int?): ResponseEntity<*>?
 
     @DeleteMapping("/{attendanceID}")
-    @ApiResponses(value = {@ApiResponse(description = "Delete an attendance with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Delete an attendance with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> deleteAttendanceById(@PathVariable Integer attendanceID);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun deleteAttendanceById(@PathVariable attendanceID: Int?): ResponseEntity<*>?
 
     @PutMapping("/{attendanceID}")
-    @ApiResponses(value = {@ApiResponse(description = "Update an attendance with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Update an attendance with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> updateAttendance(@PathVariable Integer attendanceID, @RequestBody Attendance attendance);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun updateAttendance(@PathVariable attendanceID: Int?, @RequestBody attendance: Attendance?): ResponseEntity<*>?
 }

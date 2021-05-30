@@ -1,44 +1,67 @@
-package interfaces.controllerInterfaces;
+package interfaces.controllerInterfaces
 
-import models.JPA.Message;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
+import org.apache.logging.log4j.message.Message
+import org.springframework.web.bind.annotation.*
 
 @Tag(name = "Messages")
-public interface MessageControllerInterface {
-
+interface MessageControllerInterface {
     @PostMapping
-    @ApiResponses(value = {@ApiResponse(description = "Successfully created a new message",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Successfully created a new message",
             responseCode = "201",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> createMessage(@RequestBody Message message);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun createMessage(@RequestBody message: Message?): ResponseEntity<*>?
 
-    @GetMapping
-    @ApiResponses(value = {@ApiResponse(description = "Get all messages",
+    @get:ApiResponses(
+        value = [ApiResponse(
+            description = "Get all messages",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> getAllMessages();
+            content = arrayOf(
+                Content(
+                    schema = Schema(implementation = ResponseEntity::class)
+                )
+            )
+        )]
+    )
+    @get:GetMapping
+    val allMessages: ResponseEntity<*>?
 
     @GetMapping("/{messageID}")
-    @ApiResponses(value = {@ApiResponse(description = "Get a specific message with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Get a specific message with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> getMessageById(@PathVariable Integer messageID);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun getMessageById(@PathVariable messageID: Int?): ResponseEntity<*>?
 
     @DeleteMapping("/{messageID}")
-    @ApiResponses(value = {@ApiResponse(description = "Delete a message with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Delete a message with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> deleteMessageById(@PathVariable Integer messageID);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun deleteMessageById(@PathVariable messageID: Int?): ResponseEntity<*>?
 
     @PutMapping("/{messageID}")
-    @ApiResponses(value = {@ApiResponse(description = "Update a message with specific ID",
+    @ApiResponses(
+        value = [ApiResponse(
+            description = "Update a message with specific ID",
             responseCode = "200",
-            content = @Content(schema = @Schema(implementation = ResponseEntity.class)))})
-    ResponseEntity<?> updateMessage(@PathVariable Integer messageID, @RequestBody Message Message);
+            content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
+        )]
+    )
+    fun updateMessage(@PathVariable messageID: Int?, @RequestBody Message: Message?): ResponseEntity<*>?
 }

@@ -1,10 +1,9 @@
-package dashboard.exceptions
+package exceptions
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
 object ExceptionFactory {
-
     fun EMPLOYEE_NOT_FOUND(employeeID: Int): ResponseEntity<*> {
         return ResponseEntity(
             ApiError("Employee with ID $employeeID is not found", HttpStatus.NOT_FOUND),
@@ -30,7 +29,6 @@ object ExceptionFactory {
         )
     }
 
-    @JvmStatic
     fun ANNOUNCEMENT_NOT_FOUND(announcementID: Int): ResponseEntity<*> {
         return ResponseEntity(
             ApiError("Announcement with ID $announcementID is not found", HttpStatus.NOT_FOUND),

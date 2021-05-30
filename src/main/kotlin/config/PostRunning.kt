@@ -1,32 +1,25 @@
-package config;
+package config
 
-import models.JPA.Employee;
-import models.JPA.Title;
-import models.JPA.Priority;
-import models.JPA.Task;
-import com.dashboard.repositories.RoleRepository;
-import com.dashboard.repositories.TaskRepository;
-import services.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
+import dashboard.models.jpa.Employee
+import models.jpa.Priority
+import dashboard.models.jpa.Task
+import models.jpa.Title
+import org.springframework.boot.CommandLineRunner
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
+import org.springframework.context.annotation.Configuration
+import repositories.RoleRepository
+import repositories.TaskRepository
+import services.EmployeeService
 
 @Configuration
-@ConditionalOnProperty(value = "insertDataAuto", havingValue = "true")
-public class PostRunning implements CommandLineRunner {
-
-    @Autowired
-    private EmployeeService employeeService;
-
-    @Autowired
-    private TaskRepository taskRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+@ConditionalOnProperty(value = ["insertDataAuto"], havingValue = "true")
+class PostRunning(val employeeService: EmployeeService,
+                  val taskRepository: TaskRepository,
+                  val roleRepository: RoleRepository
+) : CommandLineRunner {
 
 
-    @Override
-    public void run(String... args) {
+    override fun run(vararg args: String) {
 
         // ROLES
 //        Role admin = new Role("ADMIN");
@@ -35,24 +28,24 @@ public class PostRunning implements CommandLineRunner {
 //        roleRepository.save(user);
 
         // TASKS
-        Task task1 = new Task("Task1", "Description 1", Priority.LOW);
-        Task task2 = new Task("Task2", "Description 2", Priority.NORMAL);
-        Task task3 = new Task("Task3", "Description 3", Priority.HIGH);
-        taskRepository.save(task1);
-        taskRepository.save(task2);
-        taskRepository.save(task3);
+        val task1 = Task(taskname = "Task1", description =  "Description 1", priority =  Priority.LOW)
+        val task2 = Task(taskname = "Task2", description =  "Description 2")
+        val task3 = Task(taskname = "Task3", description =  "Description 3", priority = Priority.HIGH)
+        taskRepository.save(task1)
+        taskRepository.save(task2)
+        taskRepository.save(task3)
 
 
         // EMPLOYEES
-        Employee employee1 = new Employee("username1", "firstname1", "lastname1", "password1", 1000, Title.DEVELOPER);
-        employeeService.save(employee1);
-        Employee employee2 = new Employee("username2", "firstname2", "lastname2", "password2", 2000, Title.DEVELOPER);
-        employeeService.save(employee2);
-        Employee employee3 = new Employee("username3", "firstname3", "lastname3", "password3", 3000, Title.HR);
-        employeeService.save(employee3);
-        Employee employee4 = new Employee("username4", "firstname4", "lastname4", "password4", 4000, Title.MANAGER);
-        employeeService.save(employee4);
-        Employee employee5 = new Employee("username5", "firstname5", "lastname5", "password5", 5000, Title.DEVELOPER);
-        employeeService.save(employee5);
+        val employee1 = Employee(username = "username1", firstname = "firstname1", lastname = "lastname1", password =  "password1", salary = 1000, title = Title.DEVELOPER)
+        employeeService.save(employee1)
+        val employee2 = Employee(username = "username2",firstname =  "firstname2", lastname = "lastname2", password = "password2", salary =  2000, title = Title.DEVELOPER)
+        employeeService.save(employee2)
+        val employee3 = Employee(username = "username3",firstname =  "firstname3", lastname = "lastname3", password = "password3", salary =  3000, title = Title.HR)
+        employeeService.save(employee3)
+        val employee4 = Employee(username = "username4",firstname =  "firstname4", lastname = "lastname4", password = "password4", salary =  4000, title = Title.MANAGER)
+        employeeService.save(employee4)
+        val employee5 = Employee(username = "username5",firstname =  "firstname5", lastname = "lastname5", password = "password5", salary =  5000, title = Title.DEVELOPER)
+        employeeService.save(employee5)
     }
 }

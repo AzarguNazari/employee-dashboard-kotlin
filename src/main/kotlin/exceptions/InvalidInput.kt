@@ -1,7 +1,5 @@
-package exceptions;
+package exceptions
 
-public class InvalidInput extends RuntimeException {
-    public InvalidInput(String message) {
-        super(message);
-    }
-}
+import java.lang.RuntimeException
+
+class InvalidInput(message: String?) : RuntimeException(message)

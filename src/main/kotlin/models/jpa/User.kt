@@ -1,5 +1,6 @@
-package dashboard.models.jpa
+package models.jpa
 
+import dashboard.models.jpa.Employee
 import javax.persistence.*
 
 @Entity
