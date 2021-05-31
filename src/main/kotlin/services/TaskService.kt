@@ -1,22 +1,25 @@
 package services
 
-import com.dashboard.repositories.TaskRepository
+import dashboard.models.jpa.Task
+import exceptions.EmployeeNotFoundException
 import interfaces.serviceInterfaces.CrudOperations
 import interfaces.serviceInterfaces.TaskServiceInterface
+import models.jpa.Priority
 import org.springframework.stereotype.Service
+import repositories.TaskRepository
 import java.util.*
 import javax.transaction.Transactional
 
 @Service
-@Slf4j
+
 @Transactional
-class TaskService(taskRepository: TaskRepository) : CrudOperations<Task>, TaskServiceInterface {
-    private val taskRepository: TaskRepository
+class TaskService(val taskRepository: TaskRepository) : CrudOperations<Task>, TaskServiceInterface {
+
     override fun deleteAll() {
         taskRepository.deleteAll()
     }
 
-    override fun addAllTasks(tasks: List<Task?>) {
+    override fun addAllTasks(tasks: List<Task>) {
         tasks.forEach(taskRepository::save)
     }
 
@@ -29,14 +32,13 @@ class TaskService(taskRepository: TaskRepository) : CrudOperations<Task>, TaskSe
         return if (byId.isPresent) byId.get() else throw EmployeeNotFoundException()
     }
 
-    override val all: List<T>
-        get() = taskRepository.findAll()
+    override fun all(): List<Task> = taskRepository.findAll()
 
     override fun totalEmployees(): Long {
         return taskRepository.count()
     }
 
-    override fun getTaskByPriority(priority: Priority): List<Task?> {
+    override fun getTaskByPriority(priority: Priority): List<Task> {
         return taskRepository.findByPriority(priority.toString())
     }
 
@@ -53,12 +55,12 @@ class TaskService(taskRepository: TaskRepository) : CrudOperations<Task>, TaskSe
         }
     }
 
-    override fun findTaskByStatus(status: String?): List<Task?> {
+    override fun findTaskByStatus(status: String): List<Task> {
         return taskRepository.findByPriority(status)
     }
 
     override fun exist(taskId: Int): Boolean {
-        return taskRepository.findById(taskId).isEmpty()
+        return taskRepository.findById(taskId).isEmpty
     }
 
     override fun count(): Long {
@@ -67,9 +69,5 @@ class TaskService(taskRepository: TaskRepository) : CrudOperations<Task>, TaskSe
 
     fun removeTask(taskID: Int) {
         taskRepository.deleteById(taskID)
-    }
-
-    init {
-        this.taskRepository = taskRepository
     }
 }

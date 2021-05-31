@@ -1,4 +1,4 @@
-package dashboard.exceptions
+package exceptions
 
 import java.lang.RuntimeException
 
@@ -9,4 +9,4 @@ class EmployeeNotFoundException : RuntimeException()
 class BadRequestException : RuntimeException()
 class AttendanceNotFoundException : RuntimeException()
 class AnnouncementNotFoundException : RuntimeException()
-class InvalidInput(message: String?) : RuntimeException(message)
+class InvalidInput(message: String) : RuntimeException(message)

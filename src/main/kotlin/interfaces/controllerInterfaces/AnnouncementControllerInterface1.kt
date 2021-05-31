@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 @Tag(name = "Announcements")
 interface AnnouncementControllerInterface {
+
     @PostMapping
     @ApiResponses(
         value = [ApiResponse(
@@ -19,9 +20,9 @@ interface AnnouncementControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun createAnnouncement(@RequestBody announcement: Announcement?): ResponseEntity<*>?
+    fun createAnnouncement(@RequestBody announcement: Announcement): ResponseEntity<*>
 
-    @get:ApiResponses(
+    @ApiResponses(
         value = [ApiResponse(
             description = "Get all announcements",
             responseCode = "200",
@@ -32,8 +33,8 @@ interface AnnouncementControllerInterface {
             )
         )]
     )
-    @get:GetMapping
-    val allEmployees: ResponseEntity<*>?
+    @GetMapping
+    fun allEmployees(): ResponseEntity<*>
 
     @GetMapping("/{announcementID}")
     @ApiResponses(
@@ -43,7 +44,7 @@ interface AnnouncementControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getEmployeeById(@PathVariable announcementID: Int?): ResponseEntity<*>?
+    fun getEmployeeById(@PathVariable announcementID: Int): ResponseEntity<*>
 
     @DeleteMapping("/{announcementID}")
     @ApiResponses(
@@ -53,7 +54,7 @@ interface AnnouncementControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun deleteEmployeeById(@PathVariable announcementID: Int?): ResponseEntity<*>?
+    fun deleteEmployeeById(@PathVariable announcementID: Int): ResponseEntity<*>
 
     @PutMapping("/{announcementID}")
     @ApiResponses(
@@ -63,5 +64,5 @@ interface AnnouncementControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun updateEmployee(@PathVariable announcementID: Int?, @RequestBody announcement: Announcement?): ResponseEntity<*>?
+    fun updateEmployee(@PathVariable announcementID: Int, @RequestBody announcement: Announcement): ResponseEntity<*>
 }

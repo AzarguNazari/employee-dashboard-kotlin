@@ -1,6 +1,6 @@
 //package security
 //
-//import dashboard.exceptions.EmployeeNotFoundException
+//import exceptions.EmployeeNotFoundException
 //import dashboard.models.jpa.Employee
 //import dashboard.models.security.CustomEmployeeDetails
 //import org.springframework.security.crypto.password.PasswordEncoder

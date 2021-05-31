@@ -1,18 +1,19 @@
 package services
 
-import com.dashboard.repositories.AttendanceRepository
+import exceptions.AttendanceNotFoundException
 import interfaces.serviceInterfaces.CrudOperations
+import models.jpa.Attendance
 import org.springframework.stereotype.Service
+import repositories.AttendanceRepository
 import java.util.*
 
 @Service
-@Slf4j
-class AttendanceService : CrudOperations<Attendance> {
-    @Autowired
-    private val attendanceRepository: AttendanceRepository? = null
+
+class AttendanceService(val attendanceRepository: AttendanceRepository) : CrudOperations<Attendance> {
+
     override fun save(attendance: Attendance) {
         attendanceRepository.save(attendance)
-        AttendanceService.log.debug("New attendance is added {}", attendance)
+//        AttendanceService.log.debug("New attendance is added {}", attendance)
     }
 
     override fun delete(attendanceId: Int) {
@@ -25,16 +26,15 @@ class AttendanceService : CrudOperations<Attendance> {
         val byId: Optional<Attendance> = attendanceRepository.findById(attendanceId)
         if (byId.isEmpty) throw AttendanceNotFoundException()
         attendanceRepository.deleteById(attendanceId)
-        attendance.setId(attendanceId)
+        attendance.id = attendanceId
         attendanceRepository.save(attendance)
     }
 
     override fun exist(attendanceId: Int): Boolean {
-        return attendanceRepository.findById(attendanceId).isPresent()
+        return attendanceRepository.findById(attendanceId).isPresent
     }
 
-    override val all: List<T>
-        get() = attendanceRepository.findAll()
+    override fun all(): List<Attendance> = attendanceRepository.findAll()
 
     override fun getById(attendanceId: Int): Attendance {
         val byId: Optional<Attendance> = attendanceRepository.findById(attendanceId)

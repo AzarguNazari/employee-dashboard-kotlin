@@ -21,9 +21,9 @@ interface UserControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun createUser(@RequestBody user: User?): ResponseEntity<*>?
+    fun createUser(@RequestBody user: User): ResponseEntity<*>
 
-    @get:ApiResponses(
+    @ApiResponses(
         value = [ApiResponse(
             description = "Get all the users",
             responseCode = "200",
@@ -34,9 +34,9 @@ interface UserControllerInterface {
             )
         )]
     )
-    @get:Operation(summary = "get list of users")
-    @get:GetMapping
-    val allUsers: ResponseEntity<*>?
+    @Operation(summary = "get list of users")
+    @GetMapping
+    fun allUsers(): ResponseEntity<*>
 
     @GetMapping("/{userID}")
     @Operation(summary = "get a specific user")
@@ -47,7 +47,7 @@ interface UserControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getUserById(@PathVariable userID: Int?): ResponseEntity<*>?
+    fun getUserById(@PathVariable userID: Int): ResponseEntity<*>
 
     @DeleteMapping("/{userID}")
     @Operation(summary = "delete a specific user")
@@ -58,7 +58,7 @@ interface UserControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun deleteUserById(@PathVariable userID: Int?): ResponseEntity<*>?
+    fun deleteUserById(@PathVariable userID: Int): ResponseEntity<*>
 
     @PutMapping("/{userID}")
     @Operation(summary = "update a specific user")
@@ -69,5 +69,5 @@ interface UserControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun updateUser(@PathVariable userID: Int?, @RequestBody user: User?): ResponseEntity<*>?
+    fun updateUser(@PathVariable userID: Int, @RequestBody user: User): ResponseEntity<*>
 }

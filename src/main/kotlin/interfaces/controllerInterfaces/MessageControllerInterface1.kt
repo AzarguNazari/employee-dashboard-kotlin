@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.apache.logging.log4j.message.Message
+import models.jpa.Message
 import org.springframework.web.bind.annotation.*
 
 @Tag(name = "Messages")
@@ -19,9 +19,9 @@ interface MessageControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun createMessage(@RequestBody message: Message?): ResponseEntity<*>?
+    fun createMessage(@RequestBody message: Message): ResponseEntity<*>
 
-    @get:ApiResponses(
+    @ApiResponses(
         value = [ApiResponse(
             description = "Get all messages",
             responseCode = "200",
@@ -32,8 +32,8 @@ interface MessageControllerInterface {
             )
         )]
     )
-    @get:GetMapping
-    val allMessages: ResponseEntity<*>?
+    @GetMapping
+    fun allMessages(): ResponseEntity<*>
 
     @GetMapping("/{messageID}")
     @ApiResponses(
@@ -43,7 +43,7 @@ interface MessageControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getMessageById(@PathVariable messageID: Int?): ResponseEntity<*>?
+    fun getMessageById(@PathVariable messageID: Int): ResponseEntity<*>
 
     @DeleteMapping("/{messageID}")
     @ApiResponses(
@@ -53,7 +53,7 @@ interface MessageControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun deleteMessageById(@PathVariable messageID: Int?): ResponseEntity<*>?
+    fun deleteMessageById(@PathVariable messageID: Int): ResponseEntity<*>
 
     @PutMapping("/{messageID}")
     @ApiResponses(
@@ -63,5 +63,5 @@ interface MessageControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun updateMessage(@PathVariable messageID: Int?, @RequestBody Message: Message?): ResponseEntity<*>?
+    fun updateMessage(@PathVariable messageID: Int, @RequestBody Message: Message): ResponseEntity<*>
 }

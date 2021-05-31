@@ -16,10 +16,9 @@ import java.util.function.Consumer
     property = "error",
     visible = true
 )
-@JsonTypeIdResolver(
-    LowerCaseClassNameResolver::class
-)
+@JsonTypeIdResolver(LowerCaseClassNameResolver::class)
 class ApiError private constructor() {
+
     private var status: HttpStatus? = null
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
@@ -56,12 +55,12 @@ class ApiError private constructor() {
         subErrors!!.add(subError)
     }
 
-    private fun addValidationError(`object`: String, field: String, rejectedValue: Any?, message: String?) {
-        addSubError(ApiValidationError(`object`, field, rejectedValue, message))
+    private fun addValidationError(entity: String?, field: String?, rejectedValue: Any?, message: String?) {
+        addSubError(ApiValidationError(entity, message, field, rejectedValue))
     }
 
-    private fun addValidationError(`object`: String, message: String?) {
-        addSubError(ApiValidationError(`object`, message))
+    private fun addValidationError(entity: String, message: String?) {
+        addSubError(ApiValidationError(entity = entity, message = message))
     }
 
     private fun addValidationError(fieldError: FieldError) {
@@ -78,10 +77,7 @@ class ApiError private constructor() {
     }
 
     private fun addValidationError(objectError: ObjectError) {
-        this.addValidationError(
-            objectError.objectName,
-            objectError.defaultMessage
-        )
+        this.addValidationError(objectError.objectName, objectError.defaultMessage)
     }
 
     fun addValidationError(globalErrors: List<ObjectError>) {

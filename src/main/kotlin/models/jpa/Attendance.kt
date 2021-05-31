@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "attendance")
 data class Attendance(
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) val id: Int = 0,
+    @Id @GeneratedValue(strategy = GenerationType.AUTO) var id: Int = 0,
     val present: Boolean,
     @Temporal(TemporalType.DATE) val date: Date
 )
