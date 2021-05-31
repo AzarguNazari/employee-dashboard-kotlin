@@ -19,9 +19,9 @@ interface TaskControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun createTask(@RequestBody task: Task?): ResponseEntity<*>?
+    fun createTask(@RequestBody task: Task): ResponseEntity<*>
 
-    @get:ApiResponses(
+    @ApiResponses(
         value = [ApiResponse(
             description = "Get all tasks",
             responseCode = "200",
@@ -32,8 +32,8 @@ interface TaskControllerInterface {
             )
         )]
     )
-    @get:GetMapping
-    val allTasks: ResponseEntity<*>?
+    @GetMapping
+    fun allTasks(): ResponseEntity<*>
 
     @GetMapping("/{id}")
     @ApiResponses(
@@ -43,7 +43,7 @@ interface TaskControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getTaskById(@PathVariable id: Int?): ResponseEntity<*>?
+    fun getTaskById(@PathVariable id: Int): ResponseEntity<*>
 
     @GetMapping("/status/{status}")
     @ApiResponses(
@@ -53,7 +53,7 @@ interface TaskControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getTaskByStatus(@PathVariable status: String?): ResponseEntity<*>?
+    fun getTaskByStatus(@PathVariable status: String): ResponseEntity<*>
 
     @DeleteMapping("/{id}")
     @ApiResponses(
@@ -63,7 +63,7 @@ interface TaskControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun deleteTaskById(@PathVariable id: Int?): ResponseEntity<*>?
+    fun deleteTaskById(@PathVariable id: Int): ResponseEntity<*>
 
     @PutMapping("/{id}")
     @ApiResponses(
@@ -73,5 +73,5 @@ interface TaskControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun updateTask(@PathVariable employeeId: Int?, @RequestBody task: Task?): ResponseEntity<*>?
+    fun updateTask(@PathVariable employeeId: Int, @RequestBody task: Task): ResponseEntity<*>
 }

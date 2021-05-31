@@ -1,6 +1,6 @@
 package services
 
-import dashboard.exceptions.AnnouncementNotFoundException
+import exceptions.AnnouncementNotFoundException
 import dashboard.models.jpa.Announcement
 import interfaces.serviceInterfaces.CrudOperations
 import org.springframework.stereotype.Service
@@ -33,6 +33,6 @@ class AnnouncementService(val announcementRepository: AnnouncementRepository) : 
 
     override fun all(): List<Announcement> = announcementRepository.findAll()
 
-    override fun getById(announcementId: Int) = announcementRepository.findById(announcementId).orElseThrow { AnnouncementNotFoundException() }
-    }
+    override fun getById(announcementId: Int): Announcement = announcementRepository.findById(announcementId).orElseThrow { AnnouncementNotFoundException() }
+
 }

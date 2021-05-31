@@ -1,24 +1,25 @@
 package services
 
-import com.dashboard.repositories.EmployeeRepository
+import dashboard.models.jpa.Employee
+import exceptions.BadRequestException
+import exceptions.EmployeeNotFoundException
 import interfaces.serviceInterfaces.CrudOperations
 import interfaces.serviceInterfaces.EmployeeServiceInterface
-import models.JPA.Employee
 import org.springframework.stereotype.Service
+import repositories.EmployeeRepository
+import repositories.TaskRepository
 import java.util.*
 
 @Service
-class EmployeeService : CrudOperations<Employee>, EmployeeServiceInterface {
-    @Autowired
-    private val employeeRepository: EmployeeRepository? = null
+class EmployeeService(val employeeRepository: EmployeeRepository,
+                      val taskRepository: TaskRepository
+) : CrudOperations<Employee>, EmployeeServiceInterface {
 
-    @Autowired
-    private val taskRepository: TaskRepository? = null
     override fun deleteAllEmployees() {
         employeeRepository.deleteAll()
     }
 
-    override fun addAllEmployees(users: List<Employee?>?) {
+    override fun addAllEmployees(users: List<Employee>) {
         employeeRepository.saveAll(users)
     }
 
@@ -31,14 +32,13 @@ class EmployeeService : CrudOperations<Employee>, EmployeeServiceInterface {
         }
     }
 
-    override val all: List<T>
-        get() = employeeRepository.findAll()
+    override fun all(): List<Employee> = employeeRepository.findAll()
 
     override fun getById(id: Int): Employee {
         return employeeRepository.findById(id).orElseThrow { EmployeeNotFoundException() }
     }
 
-    override fun getByUsername(username: String?): Optional<Employee?> {
+    override fun getByUsername(username: String): Optional<Employee> {
         return employeeRepository.findByUsername(username)
     }
 
@@ -56,22 +56,15 @@ class EmployeeService : CrudOperations<Employee>, EmployeeServiceInterface {
         employeeRepository.save(employee)
     }
 
-    override fun assignTask(employeeId: Int?, taskID: Int?) {
-        employeeRepository.findById(employeeId)
-            .orElseThrow { EmployeeNotFoundException() }
-            .getTasks()
-            .add(taskRepository.findById(employeeId)
-                .orElseThrow { TaskNotFoundException() }
-            )
+    override fun assignTask(employeeId: Int, taskID: Int) {
+//        employeeRepository.findById(employeeId).orElseThrow { EmployeeNotFoundException() }
+
     }
 
-    override fun unassignTask(employeeId: Int?, taskID: Int?) {
-        employeeRepository.findById(employeeId)
-            .orElseThrow { EmployeeNotFoundException() }
-            .getTasks()
-            .remove(taskRepository.findById(employeeId)
-                .orElseThrow { TaskNotFoundException() }
-            )
+    override fun unassignTask(employeeId: Int, taskID: Int) {
+//        employeeRepository.findById(employeeId)
+//            .orElseThrow { EmployeeNotFoundException() }
+//
     }
 
     override fun exist(employeeId: Int): Boolean {

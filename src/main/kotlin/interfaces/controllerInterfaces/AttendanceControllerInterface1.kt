@@ -20,7 +20,7 @@ interface AttendanceControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun createAttendance(@RequestBody attendance: Attendance?): ResponseEntity<*>?
+    fun createAttendance(@RequestBody attendance: Attendance): ResponseEntity<*>
 
     @GetMapping
     @ApiResponses(
@@ -30,7 +30,7 @@ interface AttendanceControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getAllAttendances(pageable: Pageable?): ResponseEntity<*>?
+    fun getAllAttendances(pageable: Pageable): ResponseEntity<*>
 
     @GetMapping("/{attendanceID}")
     @ApiResponses(
@@ -40,7 +40,7 @@ interface AttendanceControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getAttendanceById(@PathVariable attendanceID: Int?): ResponseEntity<*>?
+    fun getAttendanceById(@PathVariable attendanceID: Int): ResponseEntity<*>
 
     @DeleteMapping("/{attendanceID}")
     @ApiResponses(
@@ -50,7 +50,7 @@ interface AttendanceControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun deleteAttendanceById(@PathVariable attendanceID: Int?): ResponseEntity<*>?
+    fun deleteAttendanceById(@PathVariable attendanceID: Int): ResponseEntity<*>
 
     @PutMapping("/{attendanceID}")
     @ApiResponses(
@@ -60,5 +60,5 @@ interface AttendanceControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun updateAttendance(@PathVariable attendanceID: Int?, @RequestBody attendance: Attendance?): ResponseEntity<*>?
+    fun updateAttendance(@PathVariable attendanceID: Int, @RequestBody attendance: Attendance): ResponseEntity<*>
 }

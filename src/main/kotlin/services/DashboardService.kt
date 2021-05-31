@@ -1,36 +1,30 @@
-package dashboard.services
+package services
 
-import lombok.extern.slf4j.Slf4j
-import org.springframework.beans.factory.annotation.Autowired
-import dashboard.repositories.EmployeeRepository
-import kotlin.Throws
-import dashboard.exceptions.InvalidInput
-import dashboard.models.jpa.*
+import dashboard.models.jpa.Employee
+import exceptions.InvalidInput
+import interfaces.serviceInterfaces.DashboardServiceInterface
 import models.jpa.EmployeeDto
 import models.jpa.Title
 import org.springframework.stereotype.Service
+import repositories.EmployeeRepository
 
 @Service
-@Slf4j
-class DashboardService : DashboardServiceInterface {
-    @Autowired
-    private val employeeRepository: EmployeeRepository? = null
+class DashboardService(val employeeRepository: EmployeeRepository) : DashboardServiceInterface {
+
     @Throws(InvalidInput::class)
-    override fun createAccount(employeeDto: EmployeeDto?) {
+    override fun createAccount(employeeDto: EmployeeDto) {
         if (!employeeDto!!.password1.equals(employeeDto.password2, ignoreCase = true)) {
             throw InvalidInput("Passwords do not match")
         }
         val employee = Employee(
-            employeeDto.username,
-            employeeDto.firstName,
-            employeeDto.lastName,
-            employeeDto.password1,
-            employeeDto.salary,
-            Title.valueOf(
-                employeeDto.position
-            )
+            username = employeeDto.username,
+            firstname = employeeDto.firstName,
+            lastname = employeeDto.lastName,
+            password = employeeDto.password1,
+            salary = employeeDto.salary,
+            title = Title.valueOf(employeeDto.position)
         )
-        employeeRepository!!.save(employee)
-        DashboardService.log.debug("New employee is saved {}", employee)
+        employeeRepository.save(employee)
+//        DashboardService.log.debug("New employee is saved {}", employee)
     }
 }

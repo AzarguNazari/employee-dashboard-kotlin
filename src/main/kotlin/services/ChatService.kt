@@ -1,11 +1,10 @@
 package services
 
-import lombok.extern.log4j.Log4j2
 import interfaces.serviceInterfaces.ChatServiceInterface
 import org.springframework.stereotype.Service
 
 @Service
-@Log4j2
+
 class ChatService : ChatServiceInterface { //    @Autowired
     //    private MessageRepository messageRepository;
     //

@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
 object ExceptionFactory {
+
     fun EMPLOYEE_NOT_FOUND(employeeID: Int): ResponseEntity<*> {
         return ResponseEntity(
             ApiError("Employee with ID $employeeID is not found", HttpStatus.NOT_FOUND),

@@ -20,7 +20,7 @@ interface EmployeeControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun createEmployee(@RequestBody employee: Employee?): ResponseEntity<*>?
+    fun createEmployee(@RequestBody employee: Employee): ResponseEntity<*>
 
     @GetMapping
     @ApiResponses(
@@ -30,7 +30,7 @@ interface EmployeeControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getAllEmployees(pageable: Pageable?): ResponseEntity<*>?
+    fun getAllEmployees(pageable: Pageable): ResponseEntity<*>
 
     @GetMapping("/{id}")
     @ApiResponses(
@@ -40,7 +40,7 @@ interface EmployeeControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun getEmployeeById(@PathVariable id: Int?): ResponseEntity<*>?
+    fun getEmployeeById(@PathVariable id: Int): ResponseEntity<*>
 
     @DeleteMapping("/{id}")
     @ApiResponses(
@@ -50,7 +50,7 @@ interface EmployeeControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun deleteEmployeeById(@PathVariable id: Int?): ResponseEntity<*>?
+    fun deleteEmployeeById(@PathVariable id: Int): ResponseEntity<*>
 
     @PutMapping("/{id}")
     @ApiResponses(
@@ -60,7 +60,7 @@ interface EmployeeControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun updateEmployee(@PathVariable employeeId: Int?, @RequestBody employee: Employee?): ResponseEntity<*>?
+    fun updateEmployee(@PathVariable employeeId: Int, @RequestBody employee: Employee): ResponseEntity<*>
 
     // Task Operation with Employee
     @PostMapping("/{employeeID}/tasks/{taskID}")
@@ -71,7 +71,7 @@ interface EmployeeControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun assignTask(@PathVariable employeeID: Int?, @PathVariable taskID: Int?): ResponseEntity<*>?
+    fun assignTask(@PathVariable employeeID: Int, @PathVariable taskID: Int): ResponseEntity<*>
 
     @DeleteMapping("/{employeeID}/tasks/{taskID}")
     @ApiResponses(
@@ -81,5 +81,5 @@ interface EmployeeControllerInterface {
             content = arrayOf(Content(schema = Schema(implementation = ResponseEntity::class)))
         )]
     )
-    fun unassignTask(@PathVariable employeeID: Int?, @PathVariable taskID: Int?): ResponseEntity<*>?
+    fun unassignTask(@PathVariable employeeID: Int, @PathVariable taskID: Int): ResponseEntity<*>
 }

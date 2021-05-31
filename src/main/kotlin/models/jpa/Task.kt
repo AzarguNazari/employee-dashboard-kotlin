@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @Entity
 class Task(
-    @Id @GeneratedValue val id: Int? = 0,
+    @Id @GeneratedValue var id: Int? = 0,
     val taskname: String? = null,
     val description: String? = null,
     @Enumerated(EnumType.STRING) val priority: Priority? = Priority.NORMAL,
