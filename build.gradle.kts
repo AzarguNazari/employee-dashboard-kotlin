@@ -7,7 +7,7 @@ plugins {
 	kotlin("plugin.spring") version "1.5.10"
 }
 
-//group = "service.message"
+group = "dashboard"
 version = "1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
@@ -23,7 +23,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("junit:junit:4.13.1")
-	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.h2database:h2")
 //	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor("org.projectlombok:lombok")
