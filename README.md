@@ -2,17 +2,17 @@
 A spring boot backend application with a good practice of REST.
 
 ## Technologies
-- JDK 16
+- Kotlin/JDK8
 - Spring boot
 - Intellij
 - JPA
 
 ## To run locally:
-- `./mvnw -pl backend/pom.xml spring-boot:run`
+- `./gradlew bootRun`
 
 ## To run in dev mode:
 - `docker-compose up -d`
-- `./mvnw -pl backend/pom.xml  spring-boot:run -Dspring-boot.run.profiles=dev`
+- `./gradlew bootRun`
 
 ## TODO List
 - For future improvement, you can use the `TODO.md` file
