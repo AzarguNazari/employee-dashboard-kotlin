@@ -9,5 +9,5 @@ data class User(
     val username: String,
     val password: String,
     @OneToOne(cascade = [CascadeType.ALL]) @JoinColumn(name = "employee_username", referencedColumnName = "username")
-    private val employee: Employee
+    val employee: Employee
 )
