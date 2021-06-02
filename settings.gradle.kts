@@ -1,2 +1,2 @@
-rootProject.name = "Employee-Dashboard"
+rootProject.name = "employee-dashboard-kotlin"
 
