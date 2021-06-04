@@ -1,4 +1,4 @@
-package dashboard.models.jpa
+package dashboard.models.dto
 
 data class EmployeeDto(
     val firstName: String,

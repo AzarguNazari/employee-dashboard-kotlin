@@ -3,7 +3,7 @@ package dashboard.services
 import dashboard.models.jpa.Employee
 import dashboard.exceptions.InvalidInput
 import dashboard.interfaces.serviceInterfaces.DashboardServiceInterface
-import dashboard.models.jpa.EmployeeDto
+import dashboard.models.dto.EmployeeDto
 import dashboard.models.jpa.Title
 import org.springframework.stereotype.Service
 import dashboard.repositories.EmployeeRepository
