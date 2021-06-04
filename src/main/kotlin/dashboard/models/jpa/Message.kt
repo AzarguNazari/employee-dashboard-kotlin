@@ -8,4 +8,5 @@ import javax.persistence.*
 data class Message(
     @Column val message: String,
     @Id @GeneratedValue(strategy = GenerationType.AUTO) val id: Int,
-    @Temporal(TemporalType.DATE) val created: Date)
+    @Temporal(TemporalType.DATE) val created: Date
+)
