@@ -13,7 +13,7 @@ import dashboard.services.UserService
 
 
 @RestController
-@RequestMapping("/dashboard/api/v1/users")
+@RequestMapping("/api/v1/users")
 class UserController(val userService: UserService) : UserControllerInterface {
 
     private val LOGGER: Logger = LoggerFactory.getLogger(UserController::class.java)

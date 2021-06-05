@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 import dashboard.services.TaskService
 
 @RestController
-@RequestMapping("/dashboard/api/v1/tasks")
+@RequestMapping("/api/v1/tasks")
 class TaskController(val taskService: TaskService) : TaskControllerInterface {
 
     private val LOGGER: Logger = LoggerFactory.getLogger(TaskController::class.java)
