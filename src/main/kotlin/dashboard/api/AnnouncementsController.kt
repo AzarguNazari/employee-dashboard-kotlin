@@ -13,7 +13,7 @@ import dashboard.services.AnnouncementService
 
 
 @RestController
-@RequestMapping("/dashboard/api/v1/announcements")
+@RequestMapping("/api/v1/announcements")
 class AnnouncementsController(val announcementService: AnnouncementService) : AnnouncementControllerInterface {
 
     private val LOGGER: Logger = LoggerFactory.getLogger(AnnouncementsController::class.java)

@@ -17,7 +17,7 @@ import dashboard.services.AttendanceService
 
 
 @RestController
-@RequestMapping("/dashboard/api/v1/attendance")
+@RequestMapping("/api/v1/attendance")
 class AttendanceController(val attendanceService: AttendanceService) : AttendanceControllerInterface {
 
     private val LOGGER: Logger = LoggerFactory.getLogger(AttendanceController::class.java)

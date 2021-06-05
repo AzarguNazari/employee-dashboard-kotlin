@@ -23,22 +23,22 @@ class SwaggerConfig {
     fun openApi() = OpenAPI().info(Info().title(openAPITitle).version(version).license(License().name("Licence")))
 
     @Bean
-    fun userGroup() = GroupedOpenApi.builder().group("Users").pathsToMatch("/dashboard/api/v1/users/**").build()
+    fun userGroup() = GroupedOpenApi.builder().group("Users").pathsToMatch("/api/v1/users/**").build()
 
     @Bean
-    fun employeeGroup() = GroupedOpenApi.builder().group("Employees").pathsToMatch("/dashboard/api/v1/employees/**").build()
+    fun employeeGroup() = GroupedOpenApi.builder().group("Employees").pathsToMatch("/api/v1/employees/**").build()
 
     @Bean
-    fun taskGroup() = GroupedOpenApi.builder().group("Tasks").pathsToMatch("/dashboard/api/v1/tasks/**").build()
+    fun taskGroup() = GroupedOpenApi.builder().group("Tasks").pathsToMatch("/api/v1/tasks/**").build()
 
     @Bean
-    fun messageGroup() = GroupedOpenApi.builder().group("Messages").pathsToMatch("/dashboard/api/v1/messages/**").build()
+    fun messageGroup() = GroupedOpenApi.builder().group("Messages").pathsToMatch("/api/v1/messages/**").build()
 
 
     @Bean
-    fun announcementGroup() = GroupedOpenApi.builder().group("Announcements").pathsToMatch("/dashboard/api/v1/announcements/**").build()
+    fun announcementGroup() = GroupedOpenApi.builder().group("Announcements").pathsToMatch("/api/v1/announcements/**").build()
 
     @Bean
-    fun attendanceGroup() = GroupedOpenApi.builder().group("Attendance").pathsToMatch("/dashboard/api/v1/attendance/**").build()
+    fun attendanceGroup() = GroupedOpenApi.builder().group("Attendance").pathsToMatch("/api/v1/attendance/**").build()
 
 }

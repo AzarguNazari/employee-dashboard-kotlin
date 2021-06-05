@@ -27,7 +27,7 @@ dependencies {
 //	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.security:spring-security-test")
+//	testImplementation("org.springframework.security:spring-security-test")
 	implementation("org.springdoc:springdoc-openapi-ui:1.5.9")
 }
 

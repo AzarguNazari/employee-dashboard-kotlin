@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 import dashboard.services.EmployeeService
 
 @RestController
-@RequestMapping("/dashboard/api/v1/employees")
+@RequestMapping("/api/v1/employees")
 class EmployeeController(val employeeService: EmployeeService) : EmployeeControllerInterface {
 
     private val LOGGER: Logger = LoggerFactory.getLogger(EmployeeController::class.java)

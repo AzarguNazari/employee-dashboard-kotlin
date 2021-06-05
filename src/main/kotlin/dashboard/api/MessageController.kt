@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 
 @RestController
-@RequestMapping("/dashboard/api/v1/messages")
+@RequestMapping("/api/v1/messages")
 class MessageController : MessageControllerInterface {
 
     private val LOGGER: Logger = LoggerFactory.getLogger(MessageController::class.java)
